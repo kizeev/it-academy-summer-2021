@@ -1,11 +1,7 @@
 # Используйте генератор списков чтобы получить следующий:
 # ['ab', 'ac', 'ad', 'bb', 'bc', 'bd']
-str_ = "bcd"
-lst = []
-for i in str_:
-    lst.append("a" + i)
-for i in str_:
-    lst.append("b" + i)
+
+lst = [first + second for first in 'ab' for second in 'bcd']
 print(lst)
 
 # Используйте на предыдущий список slice чтобы получить следующий:
@@ -15,9 +11,7 @@ print(lst_2)
 
 # Используйте генератор списков чтобы получить следующий
 # ['1a', '2a', '3a', '4a']
-lst_3 = []
-for i in range(1, 5):
-    lst_3.append(str(i) + "a")
+lst_3 = [number + 'a' for number in '1234']
 print(lst_3)
 
 # Одной строкой удалите элемент  '2a' из прошлого списка и напечатайте его
