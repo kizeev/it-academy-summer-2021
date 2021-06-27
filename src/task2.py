@@ -12,21 +12,21 @@
 
 # Создать словарь: ключ = страна, значение = список городов
 num_country = int(input('Введите количество стран: '))
-count1 = 0
+count1 = 1
 dict_country = {}
 
-while count1 < num_country:
+while count1 <= num_country:
     country_city = input('Введите страну и ее города: ')
     dict_country[country_city.split()[0]] = country_city.split()[1:]
     count1 += 1
 
 # Создать список запрашиваемых городов
 num_city = int(input('Введите количество запросов: '))
-count2 = 0
+count2 = 1
 list_city = []
 
-while count2 < num_city:
-    city = input('Введите города: ')
+while count2 <= num_city:
+    city = input('Введите город: ')
     list_city.append(city)
     count2 += 1
 
@@ -35,3 +35,5 @@ for city in list_city:
     for country in dict_country:
         if city in dict_country.get(country):
             print(country)
+        else:
+            print('Страна неизвестена')
