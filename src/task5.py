@@ -11,37 +11,37 @@
 # которые знает хотя бы один школьник, на следующих строках - список таких
 # языков.
 
-
 # Создать словарь: ключ = номер школьника, значение = список языков
-# num_schoolboy = int(input('Введите количество школьников: '))
-# count1 = 1
-# dict_schoolboy_lang = {}
-#
-# while count1 <= num_schoolboy:
-#     num_lang = int(input('Количество языков школьника №' + str(count1) + ': '))
-#     set_lang = set()
-#     count2 = 1
-#     while count2 <= num_lang:
-#         lang = input('Перечислите языки: ')
-#         set_lang.add(lang)
-#         count2 += 1
-#     dict_schoolboy_lang[count1] = set_lang
-#     count1 += 1
+num_schoolboy = input('Введите количество школьников: ')
+count1 = 1
+dict_schoolboy_lang = {}
 
-dict_schoolboy_lang = {1: {'bel', 'rus'}, 2: {'eng', 'rus'}, 3: {'fre', 'esp', 'rus'}}
-print(dict_schoolboy_lang)
+while count1 <= int(num_schoolboy):
+    num_lang = input(f'Количество языков школьника № {count1}: ')
+    set_lang = set()
+    count2 = 1
+    while count2 <= int(num_lang):
+        lang = input('Перечислите языки: ')
+        set_lang.add(lang)
+        count2 += 1
+    dict_schoolboy_lang[count1] = set_lang
+    count1 += 1
 
-all_lang = set()
-allknown_lang = set()
+# Получить языки, которые знает хотя бы один школьник
+anyknown_lang = set()
 for value in dict_schoolboy_lang.values():
-    all_lang |= value
-    allknown_lang = all_lang ^ value
-print('Количество языков, которые знают все: ' + str(allknown_lang))
+    anyknown_lang.update(value)
 
-# for lang in all_lang:
-#     print(lang)
+# Получить языки, которые знают все школьники
+allknown_lang = anyknown_lang.copy()
+for value in dict_schoolboy_lang.values():
+    allknown_lang.intersection_update(value)
 
-# allknown_lang = set()
-# for value in dict_schoolboy_lang.values():
-#     allknown_lang |= value
-# print('Количество языков, которые знают все: ' + str(len(allknown_lang)))
+# Выходные данные
+print(f'Кол-во языков, которые знают все: {len(allknown_lang)}')
+for lang in allknown_lang:
+    print(lang)
+
+print(f'Кол-во языков, которые знает хотя бы один: {len(anyknown_lang)}')
+for lang in anyknown_lang:
+    print(lang)
