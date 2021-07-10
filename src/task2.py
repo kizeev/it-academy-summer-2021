@@ -7,9 +7,11 @@ def decorator(func):
     count = []
 
     def wrapper(*args, **kwargs):
-        count.append(3)
-        func(*args, **kwargs)
-        print('количество вызовов: ', count[-1])
+        count.append(1)
+        print('количество вызовов: ', count)
+        result = func(*args, **kwargs)
+        return result
+
     return wrapper
 
 
