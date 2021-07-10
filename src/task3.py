@@ -1,32 +1,35 @@
 """ Реализовать функцию get_ranges которая получает на вход непустой список
 неповторяющихся целых чисел, отсортированных по возрастанию, которая этот
 список “сворачивает”.
+ get_ranges([0, 1, 2, 3, 4, 7, 8, 10]) // "0-4,7-8,10"
+ get_ranges([4,7,10]) // "4,7,10"
+ get_ranges([2, 3, 8, 9]) // "2-3,8-9"
 """
 
-input_list = [2, 3, 8, 9]
-edit_list = [str(input_list[0])]
 
-for number in range(1, len(input_list)):
+def get_ranges(input_list):
+    result_string = str(input_list[0])  # начать строку
 
-    # Сравнить текущее число с предыдущим и последующим, если да - ничего
-    # не делать
-    if input_list[number - 1] == input_list[number] - 1 and\
-            input_list[number + 1] == input_list[number] + 1:
-        pass
+    for element in range(1, len(input_list) - 1):
+        if input_list[element] - 1 == input_list[element - 1] and\
+                input_list[element] + 1 == input_list[element + 1]:
+            pass
+        elif input_list[element] - 1 == input_list[element - 1]:
+            result_string += '-' + str(input_list[element])
+        elif input_list[element] + 1 == input_list[element + 1]:
+            result_string += ',' + str(input_list[element])
+        else:
+            result_string += ',' + str(input_list[element])
 
-    # Сравнить текущее число только с предыдущим, если да - дефис
-    elif input_list[number - 1] == input_list[number] - 1:
-        edit_list.append('-' + str(input_list[number]) + ',')
-
-    # Сравнить текущее число только с последующим, если да - текущее число
-    elif input_list[number + 1] == input_list[number] + 1:
-        edit_list.append(str(input_list[number]))
+    # завершить строку
+    if input_list[-2] + 1 == input_list[-1]:
+        result_string += '-' + str(input_list[-1])
     else:
-        edit_list.append(',' + str(input_list[number]) + ',')
+        result_string += ',' + str(input_list[-1])
 
-edit_list.append(str(input_list[-1]))
+    print(result_string)
 
-print(edit_list)
 
-result_string = ''.join(edit_list)
-print(result_string)
+get_ranges([0, 1, 2, 3, 4, 7, 8, 10])
+get_ranges([4, 7, 10])
+get_ranges([2, 3, 8, 9])
