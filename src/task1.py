@@ -2,7 +2,7 @@
  функцию runner. (все станет проще когда мы изучим модули, getattr и setattr).
  a. runner() – все фукнции вызываются по очереди
  b. runner(‘func_name’) – вызывается только функцию func_name.
- c. runner(‘func’, ‘func1’...) - вызывает все переданные функции 
+ c. runner(‘func’, ‘func1’...) - вызывает все переданные функции
 """
 
 
@@ -15,8 +15,8 @@ def total_price():  # hw1 t1
     price_rub = price_q // 100
     price_penny = price_q % 100
 
-    print("Общая ст-ть: " + str(price_rub) + "руб. " + str(price_penny)
-          + "коп.")
+    print("Общая ст-ть: " + str(price_rub) + "руб. " + str(price_penny) +
+          "коп.")
 
 
 def longest_word():  # hw1 t2
@@ -92,7 +92,7 @@ def palindrome():  # hw1 t6
     input_ = int(input("Введите число: "))
 
     a = 0
-    b = 0
+    # b = 0
     c = input_
 
     while c > 0:
@@ -213,11 +213,14 @@ def learn_list():  # hw3 t2
 def learn_tuple():  # hw3 t3
     lst = ['a', 'b', 'c']
     tpl = tuple(lst)
+    print(tpl)
 
     tpl_1 = ('a', 'b', 'c')
     lst_1 = list(tpl_1)
+    print(lst_1)
 
     a, b, c = 'a', 2, 'python'
+    print(a, b, c)
 
     tpl_2 = ([1, 2, 3],)
     for i in tpl_2[0]:
