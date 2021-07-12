@@ -8,7 +8,7 @@
 
 # a.
 try:
-    file = open('data_hw5/ratings.list', encoding='ISO-8859-1')
+    file = open('data_hw5/ratings.list')
 except FileNotFoundError:
     print('Файл не существует')
 
@@ -37,20 +37,34 @@ with open('data_hw5/ratings.list', encoding='ISO-8859-1') as input_list:
             year = edit_line[-1]
             top250_list.append(movie)
             rating_list.append(rating)
-            year_list.append(year)
+            year_list.append(year[1:5])
 
 input_list.close()
 
-# for movie in top250_list:
-#     print(movie)
+for movie in top250_list:
+    print(movie)
 
 
 # c.
-with open('data_hw5/top250_movies.txt', 'w') as top250_movies:
+with open('top250_movies.txt', 'w') as top250_movies:
     for movie in top250_list:
         top250_movies.write(movie + '\n')
 
 top250_movies.close()
 
-with open('data_hw5/ratings.txt', 'w') as ratings:
-    bar_chart_rating =
+with open('ratings.txt', 'w') as ratings:
+    bar_char_rating = {rating: rating_list.count(rating)
+                       for rating in rating_list
+                       }
+    for key, value in bar_char_rating.items():
+        ratings.write(f'Количество фильмов с рейтингом {key}: {value}\n')
+
+ratings.close()
+
+with open('years.txt', 'w') as years:
+    year_list.sort()
+    bar_char_years = {year: year_list.count(year) for year in year_list}
+    for key, value in bar_char_years.items():
+        years.write(f'В {key} году вышло фильмов: {value}\n')
+
+years.close()
