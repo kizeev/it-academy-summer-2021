@@ -15,8 +15,7 @@ def total_price():  # hw1 t1
     price_rub = price_q // 100
     price_penny = price_q % 100
 
-    print("Общая ст-ть: " + str(price_rub) + "руб. " + str(price_penny) +
-          "коп.")
+    print(f'Общ. ст-ть: {price_rub} руб. {price_penny} коп.')
 
 
 def longest_word():  # hw1 t2
