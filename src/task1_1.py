@@ -284,7 +284,7 @@ def dict_comprehensions():
 
 def cities(num_country=1, country_city='Belarus Minsk', num_city=1,
            city='Minsk'):
-    """ Города
+    """Города
 
     Дан список стран и городов каждой страны. Затем даны названия городов. Для
     каждого города укажите, в какой стране он находится.
@@ -351,7 +351,7 @@ def two_list_number2():
 
 
 def languages(num_schoolboy=1, num_lang=1, lang='Russian'):
-    """ Языки
+    """Языки
 
     Каждый из N школьников некоторой школы знает Mi языков. Определите, какие
     языки знают все школьники и языки, которые знает хотя бы один из школьников
@@ -400,7 +400,7 @@ def languages(num_schoolboy=1, num_lang=1, lang='Russian'):
 
 def different_words(input_string='Hello!     How are you?\n'
                                  ' Where are you going?'):
-    """ Слова
+    """Слова
 
     Во входной строке записан текст. Словом считается последовательность
     непробельных символов идущих подряд, слова разделены одним или большим
@@ -420,7 +420,7 @@ def different_words(input_string='Hello!     How are you?\n'
 
 
 def euclid_algorithm(num1=1, num2=2):
-    """ Числа
+    """Числа
 
     Даны два натуральных числа. Вычислите их наибольший общий делитель при
     помощи алгоритма Евклида (мы не знаем функции и рекурсию).
