@@ -17,15 +17,15 @@ def get_ranges(input_list):
         elif input_list[element] - 1 == input_list[element - 1]:
             result_string += '-' + str(input_list[element])
         elif input_list[element] + 1 == input_list[element + 1]:
-            result_string += ',' + str(input_list[element])
+            result_string += ', ' + str(input_list[element])
         else:
-            result_string += ',' + str(input_list[element])
+            result_string += ', ' + str(input_list[element])
 
     # завершить строку
     if input_list[-2] + 1 == input_list[-1]:
         result_string += '-' + str(input_list[-1])
     else:
-        result_string += ',' + str(input_list[-1])
+        result_string += ', ' + str(input_list[-1])
 
     print(result_string)
 

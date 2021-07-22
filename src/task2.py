@@ -5,13 +5,13 @@
 
 def decorator(func):
     def wrapper(*args, **kwargs):
-        count_func_file = open('count_func.txt', 'r')
-        count = int(count_func_file.readlines()[-1])
+        with open('count_func.txt', 'r') as count_func_file:
+            count = int(count_func_file.readlines()[-1])
         count_func_file.close()
         result = func(*args, **kwargs)
         next_count = count + 1
-        count_func_file = open('count_func.txt', 'a')
-        count_func_file.write('\n' + str(next_count))
+        with open('count_func.txt', 'a') as count_func_file:
+            count_func_file.write('\n' + str(next_count))
         count_func_file.close()
         return result
 
