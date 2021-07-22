@@ -5,7 +5,8 @@
  c. runner(‘func’, ‘func1’...) - вызывает все переданные функции
 """
 
-from inspect import getmembers, isfunction
+from inspect import getmembers
+from inspect import isfunction
 import task1_1
 
 functions_list = getmembers(task1_1, isfunction)
