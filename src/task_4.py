@@ -32,57 +32,61 @@ def various_elements_multi_table(m, n):
     print(len(various_elements))
 
 
-# def various_elements_multi_table1(m, n):
-#     count = 0
-#     if m > n:
-#         max_num = m
-#         min_num = n
-#     else:
-#         max_num = n
-#         min_num = m
-#
-#     for a in range(max_num + 1, m * n + 1):
-#         # print(a, count)
-#         for b in range(2, min_num + 1):
-#             if a % b == 0:
-#                 if a / b <= max_num:
-#                     count += 1
-#                     break
-#     print(max_num + count)
-
-def decorat(func):
+def various_elements_multi_table1(m, n):
     count = 0
-    def wrapper(*args):
-        
-def various_elements_multi_table1(min_num, max_num, t):
-    count = 0
+    if m > n:
+        max_num = m
+        min_num = n
+    else:
+        max_num = n
+        min_num = m
 
-    # print(a, count)
-    for b in range(2, min_num + 1):
-        if t % b == 0:
-            if t / b <= max_num:
-                count += 1
-                break
+    for a in range(max_num + 1, m * n + 1):
+        # print(a, count)
+        for b in range(2, min_num + 1):
+            if a % b == 0:
+                if a / b <= max_num:
+                    count += 1
+                    break
     print(max_num + count)
 
 
-def test(m, n):
-    for a in range(1, m + 1):
-        for b in range(2, n + 1):
-            yield a * b
+def various_elements_multi_table2(m, n):
+    if m >= n:
+        max_num = m
+        min_num = n
+    else:
+        max_num = n
+        min_num = m
+
+    start_row = 3
+    start_column_for_second_row = max_num // 2 + 1
+
+    count = max_num + start_column_for_second_row
+
+    for row in range(3, min_num + 1):
+        start_column = max_num // row
+        current_row = row
+        for num_in_column in range(start_column, max_num + 1):
+
+            current_number = num_in_column * row
+            if current_number > max_num:
+                if current_number % (current_row - 1) == 0:
+                    if current_number / (current_row - 1) <= max_num:
+                        continue
+                    else:
+                        count += 1
+                else:
+                    if current_row <= 3:
+                        count += 1
+                    else:
+                        current_row -= 1
+
+    print(count)
 
 
-m, n = 20, 11
-if m > n:
-    max_num = m
-    min_num = n
-else:
-    max_num = n
-    min_num = m
 
-t = test(m, n)
-
-various_elements_multi_table(m, n)
-for i in t:
-    various_elements_multi_table1(min_num, max_num, i)
+m, n = 32, 10 ** 7
+# various_elements_multi_table(m, n)
+various_elements_multi_table2(m, n)
 

@@ -1,5 +1,5 @@
-def cities(num_country=1, country_city='Belarus Minsk', num_city=1,
-           city='Minsk'):
+def cities(num_country=1, country_city='Беларусь Минск', num_city=1,
+           city='Минск'):
     """Города
     Дан список стран и городов каждой страны. Затем даны названия городов. Для
     каждого города укажите, в какой стране он находится.
@@ -32,9 +32,9 @@ def cities(num_country=1, country_city='Belarus Minsk', num_city=1,
     for city in list_city:
         for country in dict_country:
             if city in dict_country.get(country):
-                print(country)
+                return country
             else:
-                print('Страна неизвестна')
+                return 'Страна неизвестна'
 
 
 def different_words(input_string='Hello!     How are you?\n'
@@ -54,4 +54,4 @@ def different_words(input_string='Hello!     How are you?\n'
 
     words = set(edit_string.split())
 
-    print(f'В строке встречается {len(words)} различных слов')
+    return f'В строке встречается {len(words)} различных слов'

@@ -1,24 +1,32 @@
-def decorator(func):
-    """ Создайте декоратор, который хранит результаты вызовов функции (за все
-    время вызовов, не только текущий запуск программы).
+def get_ranges(input_list):
+    """ Реализовать функцию get_ranges которая получает на вход непустой список
+    неповторяющихся целых чисел, отсортированных по возрастанию, которая этот
+    список “сворачивает”.
+     get_ranges([0, 1, 2, 3, 4, 7, 8, 10]) // "0-4,7-8,10"
+     get_ranges([4,7,10]) // "4,7,10"
+     get_ranges([2, 3, 8, 9]) // "2-3,8-9"
     """
-    def wrapper(*args, **kwargs):
-        with open('count_func.txt', 'r') as count_func_file:
-            count = int(count_func_file.readlines()[-1])
-        count_func_file.close()
-        result = func(*args, **kwargs)
-        next_count = count + 1
-        with open('count_func.txt', 'a') as count_func_file:
-            count_func_file.write('\n' + str(next_count))
-        count_func_file.close()
-        return result
 
-    return wrapper
+    result_string = str(input_list[0])  # начать строку
 
+    for element in range(1, len(input_list) - 1):
+        if input_list[element] - 1 == input_list[element - 1] and\
+                input_list[element] + 1 == input_list[element + 1]:
+            pass
+        elif input_list[element] - 1 == input_list[element - 1]:
+            result_string += '-' + str(input_list[element])
+        elif input_list[element] + 1 == input_list[element + 1]:
+            result_string += ', ' + str(input_list[element])
+        else:
+            result_string += ', ' + str(input_list[element])
 
-@decorator
-def add_func(x, y):
-    print(x + y)
+    # завершить строку
+    if input_list[-2] + 1 == input_list[-1]:
+        result_string += '-' + str(input_list[-1])
+    else:
+        result_string += ', ' + str(input_list[-1])
+
+    return result_string
 
 
 def max_divisor(num):
@@ -37,5 +45,4 @@ def max_divisor(num):
 
     for divisor in list_divisors:
         if num % divisor == 0:
-            print(divisor)
-            break
+            return divisor
