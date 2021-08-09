@@ -66,27 +66,28 @@ def various_elements_multi_table2(m, n):
 
     for row in range(3, min_num + 1):
         start_column = max_num // row
-        current_row = row
         for num_in_column in range(start_column, max_num + 1):
-
             current_number = num_in_column * row
             if current_number > max_num:
-                if current_number % (current_row - 1) == 0:
-                    if current_number / (current_row - 1) <= max_num:
-                        continue
+                for current_row in range(row - 1, 1, -1):
+                    if current_number % current_row == 0:
+                        if current_number / current_row <= max_num:
+                            continue
+                        else:
+                            count += 1
+                            continue
                     else:
-                        count += 1
-                else:
-                    if current_row <= 3:
-                        count += 1
-                    else:
-                        current_row -= 1
+                        if row <= 3:
+                            count += 1
+                            continue
+                        else:
+                            break
 
     print(count)
 
 
 
-m, n = 32, 10 ** 7
-# various_elements_multi_table(m, n)
+m, n = 5, 7
+various_elements_multi_table1(m, n)
 various_elements_multi_table2(m, n)
 
