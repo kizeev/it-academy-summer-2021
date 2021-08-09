@@ -6,6 +6,8 @@
 взаимодействие объектов и т.д.
 """
 
+from random import choice
+
 
 class Hero:
     """Класс для создания героя игры"""
@@ -25,7 +27,7 @@ class Hero:
                f' strength {self.strength}'
 
     def move(self):
-        """Двигать героя"""
+        """Перемещать героя"""
         print(f'{self.name} moves')
 
     def attack(self, target_hero, power_attack):
@@ -60,7 +62,15 @@ class Human(Hero):
 
     def __init__(self, name, strength):
         Hero.__init__(self, name, strength)
-        self.strength += 20
+        self.strength += 10
+        self.artifact_of_strength = ['iron glove',
+                                     'two-handed sword',
+                                     'oak shield'
+                                     ]
+
+    def __getitem__(self):
+        random_artefact = choice(self.artifact_of_strength)
+        print(f'{self.name} gets {random_artefact}')
 
 
 class Elf(Hero):
@@ -73,6 +83,14 @@ class Elf(Hero):
         Hero.__init__(self, name)
         self.strength -= 5
         self.magic = magic
+        self.artifact_of_magic = ['moon ring',
+                                  'staff of fate',
+                                  'magician crown'
+                                  ]
+
+    def __getitem__(self):
+        random_artefact = choice(self.artifact_of_magic)
+        print(f'{self.name} gets {random_artefact}')
 
     def status_hero(self):
         """Показать характеристики магического героя"""
@@ -100,3 +118,5 @@ if __name__ == '__main__':
     print(artur.status_hero())
     print(legolas.status_hero())
     print(mike.status_hero())
+    mike.__getitem__()
+    legolas.__getitem__()

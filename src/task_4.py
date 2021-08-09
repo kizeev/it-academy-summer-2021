@@ -19,75 +19,48 @@ P(32,10**15) = 13826382602124302.
 """
 
 
-from functools import lru_cache
-import numpy
-
-
-@lru_cache(1)
 def various_elements_multi_table(m, n):
-    various_elements = set()
-    for row in range(1, m + 1):
-        for column in range(1, n + 1):
-            various_elements.add(row * column)
-    print(len(various_elements))
+    """Функция находит  различные элементы в таблице умножения путем анализа
+    каждого произведения чисел и простого счетчика.
 
-
-def various_elements_multi_table1(m, n):
-    count = 0
-    if m > n:
-        max_num = m
-        min_num = n
-    else:
-        max_num = n
-        min_num = m
-
-    for a in range(max_num + 1, m * n + 1):
-        # print(a, count)
-        for b in range(2, min_num + 1):
-            if a % b == 0:
-                if a / b <= max_num:
-                    count += 1
-                    break
-    print(max_num + count)
-
-
-def various_elements_multi_table2(m, n):
+    К сожалению не смог найти более быстрый вариант, хоть и потратил на это
+    несколько дней. В интернете есть только одно решение этой задачи, и то на
+    С++.
+    """
     if m >= n:
-        max_num = m
-        min_num = n
+        max_number = m
+        min_number = n
     else:
-        max_num = n
-        min_num = m
+        max_number = n
+        min_number = m
 
-    start_row = 3
-    start_column_for_second_row = max_num // 2 + 1
+    if max_number % 2 == 0:
+        start_column_for_second_row = max_number // 2
+    else:
+        start_column_for_second_row = max_number // 2 + 1
 
-    count = max_num + start_column_for_second_row
+    count = max_number + start_column_for_second_row
 
-    for row in range(3, min_num + 1):
-        start_column = max_num // row
-        for num_in_column in range(start_column, max_num + 1):
-            current_number = num_in_column * row
-            if current_number > max_num:
-                for current_row in range(row - 1, 1, -1):
+    for number_row in range(3, min_number + 1):
+        start_column = max_number // number_row
+        for number_column in range(start_column, max_number + 1):
+            current_number = number_column * number_row
+            if current_number > max_number:
+                for current_row in range(number_row - 1, 0, -1):
                     if current_number % current_row == 0:
-                        if current_number / current_row <= max_num:
-                            continue
+                        if current_number / current_row <= max_number:
+                            break
                         else:
                             count += 1
-                            continue
+                            break
                     else:
-                        if row <= 3:
+                        if number_row <= 3:
                             count += 1
-                            continue
-                        else:
                             break
 
-    print(count)
+    return count
 
 
-
-m, n = 5, 7
-various_elements_multi_table1(m, n)
-various_elements_multi_table2(m, n)
+various_elements_multi_table(64, 64)  # 1263
+various_elements_multi_table(12, 345)  # 1998
 
