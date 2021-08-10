@@ -37,6 +37,7 @@ def max_divisor(num):
     двойки.
     10(2) 16(16), 12(4).
     """
+
     degree = 0
     list_divisors = []
 

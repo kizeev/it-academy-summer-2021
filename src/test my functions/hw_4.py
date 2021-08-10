@@ -47,6 +47,7 @@ def different_words(input_string='Hello!     How are you?\n'
     числом пробелов или символами конца строки. Определите, сколько различных
     слов содержится в этом тексте.
     """
+
     punctuation = '!()-[]{};?:,.;_'
     edit_string = ''
 

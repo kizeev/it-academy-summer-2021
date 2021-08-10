@@ -59,7 +59,3 @@ def various_elements_multi_table(m, n):
                             break
 
     return count
-
-
-various_elements_multi_table(64, 64)  # 1263
-various_elements_multi_table(12, 345)  # 1998

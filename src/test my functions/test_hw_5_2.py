@@ -39,9 +39,7 @@ class TestMaxDivisor(unittest.TestCase):
     )
     @ddt.unpack
     def test_is_none(self, input_data):
-        """Проверить, вернет ли функция None, если на вход давать числа
-        меньше 2
-        """
+        """Проверить, вернет ли функция None, если на вход давать числа < 2"""
         result = max_divisor(input_data)
         self.assertIsNone(result)
 

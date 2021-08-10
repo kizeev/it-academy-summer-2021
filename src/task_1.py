@@ -44,6 +44,7 @@ class Hero:
         """Оценить нанесенный урон.
 
         Если убил противника - уровень повышается"""
+
         if self.__health <= 0:
             print(f'{self.name} died.')
             attacking_hero.__up_level()
