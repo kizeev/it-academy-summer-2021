@@ -38,10 +38,9 @@ def cities(num_country=1, country_city='Беларусь Минск', num_city=1
                 return 'Страна неизвестна'
 
 
-def different_words(input_string='Hello!     How are you?\n'
-                                 ' Where are you going?'):
+def different_words(input_string='Hello! How are you? Where are you going?'):
     """Слова.
-    
+
     Во входной строке записан текст. Словом считается последовательность
     непробельных символов идущих подряд, слова разделены одним или большим
     числом пробелов или символами конца строки. Определите, сколько различных
