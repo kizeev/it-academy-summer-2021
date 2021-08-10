@@ -1,4 +1,4 @@
-import  ddt
+import ddt
 from hw_2 import triangle
 import unittest
 
@@ -6,6 +6,7 @@ import unittest
 @ddt.ddt
 class TestTriangle(unittest.TestCase):
     """Тестирование функции, которая проверяет действительно ли это стороны
+
     треугольника, если да - то выводит его площадь
     """
 

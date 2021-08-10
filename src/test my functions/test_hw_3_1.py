@@ -6,6 +6,7 @@ import unittest
 @ddt.ddt
 class TestUniqueElements(unittest.TestCase):
     """Тестирование функции, которая возвращает уникальные элементы в списке
+
     в том же порядке
     """
 

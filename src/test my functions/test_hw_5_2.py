@@ -6,6 +6,7 @@ import unittest
 @ddt.ddt
 class TestMaxDivisor(unittest.TestCase):
     """Тестирование функции, которая находит максимальный делитель числа,
+
     являющийся степень двойки
     """
 
