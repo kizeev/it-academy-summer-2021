@@ -27,6 +27,9 @@ def various_elements_multi_table(m, n):
     потратил на это несколько дней. В интернете есть только одно решение этой
     задачи, и то на С++.
     """
+
+    # Определить большее число - это будет длина первой строки, где все числа
+    # будут уникальные.
     if m >= n:
         max_number = m
         min_number = n
@@ -34,13 +37,20 @@ def various_elements_multi_table(m, n):
         max_number = n
         min_number = m
 
+    # Во второй строке числа, которые больше последнего числа из первой строки,
+    # тоже будут уникальные. Найти колонку для старта подсчета
     if max_number % 2 == 0:
         start_column_for_second_row = max_number // 2
     else:
         start_column_for_second_row = max_number // 2 + 1
 
+    # Счетчик начинается с суммы чисел из первой и второй строк
     count = max_number + start_column_for_second_row
 
+    # Далее идет подсчет начиная с третьей строки: текущее произведение чисел
+    # делим на номера предыдущих строк до первого результата. Если текущее
+    # число делится без остатка и результат деления больше последнего числа
+    # первой строки, значит текущее число еще не встречалось.
     for number_row in range(3, min_number + 1):
         start_column = max_number // number_row
         for number_column in range(start_column, max_number + 1):

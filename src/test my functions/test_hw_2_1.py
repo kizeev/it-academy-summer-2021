@@ -6,6 +6,7 @@ import unittest
 @ddt.ddt
 class TestDelSpaces(unittest.TestCase):
     """Тестирование функции, которая удаляет из строки повторяющиеся символы"""
+
     @ddt.data(
         ('Hello, world', 'Helo,wrd'),
         ('112233', '123'),

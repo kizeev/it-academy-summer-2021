@@ -6,24 +6,24 @@ TooManyErrors.
 
 
 class TooManyErrors(Exception):
+    """Исключение возбуждается, если превышено количество попыток вызова"""
     def __init__(self, text):
         self.text = text
 
 
-def number_of_attempts(number):
+def number_of_attempts(number):  # декоратор с параметром
     def decorator(func):
         def wrapper(*args):
             count = number
-            while count >= 0:
-                if count == 0:
-                    raise TooManyErrors('Слишком много ошибок!!!')
-                else:
-                    try:
-                        func(*args)
-                        break
-                    except ValueError:
-                        print('Это не число!!')
-                        count -= 1
+            while count > 0:
+                try:
+                    func(*args)
+                    break
+                except ValueError:
+                    print('Это не число!!')
+                    count -= 1
+            else:
+                raise TooManyErrors('Превышено количество попыток вызова')
         return wrapper
     return decorator
 

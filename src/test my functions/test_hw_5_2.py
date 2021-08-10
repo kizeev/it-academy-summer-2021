@@ -32,12 +32,7 @@ class TestMaxDivisor(unittest.TestCase):
         with self.assertRaises(expected_error):
             max_divisor(input_data)
 
-    @ddt.data(
-        (-2,),
-        (0,),
-        (1,),
-    )
-    @ddt.unpack
+    @ddt.data(-2, 0, 1,)
     def test_is_none(self, input_data):
         """Проверить, вернет ли функция None, если на вход давать числа < 2"""
         result = max_divisor(input_data)
