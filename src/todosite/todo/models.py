@@ -2,7 +2,7 @@ from django.db import models
 
 
 class CategoryTask(models.Model):
-    """Модель представляет категории, на которые делятся задачи"""
+    """Модель представляет категории, на которые делятся задачи."""
     category_name = models.CharField(max_length=20, help_text='укажите категорию задач')
 
     def __str__(self):

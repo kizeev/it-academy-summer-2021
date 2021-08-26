@@ -1,3 +1,14 @@
 from django.shortcuts import render
+from . models import CategoryTask, Task
 
-# Create your views here.
+
+def task_list(request):
+    """Функция отображения задач на домошней странице сайта."""
+    tasks = Task.task_name.all()
+    return render(request, 'index.html', {'tasks': tasks})
+
+
+def category_task_list(request):
+    """Функция отображения категорий задач на домошней странице сайта."""
+    categories = CategoryTask.category_name.all()
+    return render(request, 'index.html', {'categories': categories})
