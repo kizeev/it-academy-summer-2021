@@ -4,7 +4,7 @@ from . models import CategoryTask, Task
 
 def task_list(request):
     """Функция отображения задач на домошней странице сайта."""
-    tasks = Task.task_name.all()
+    tasks = Task.objects.all()
     return render(request, 'index.html', {'tasks': tasks})
 
 
