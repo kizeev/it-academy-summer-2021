@@ -1,14 +1,14 @@
 from django.shortcuts import render
-from . models import CategoryTask, Task
+from .models import CategoryTask, Task
 
 
 def task_list(request):
     """Функция отображения задач на домошней странице сайта."""
     tasks = Task.objects.all()
-    return render(request, 'index.html', {'tasks': tasks})
+    return render(request, 'task_list.html', {'tasks': tasks, 'title': 'Список дел'})
 
 
-def category_task_list(request):
+def category_list(request):
     """Функция отображения категорий задач на домошней странице сайта."""
-    categories = CategoryTask.category_name.all()
-    return render(request, 'index.html', {'categories': categories})
+    categories = CategoryTask.objects.all()
+    return render(request, 'category_list.html', {'categories': categories})
