@@ -37,10 +37,7 @@
         <div class="col-md-4">
             <div class="list-group">
                 {% for category in categories %}
-                <a href="#" class="list-group-item list-group-item-action active"
-                   aria-current="true">
-                    {{ category }}
-                </a>
+                <a href="category/{{ category.pk }}" class="list-group-item list-group-item-action">{{ category.category_name }}</a>
                 {% endfor %}
             </div>
         </div>
@@ -49,7 +46,7 @@
             {% for task in tasks %}
             <div class="card mb-3">
                 <div class="card-header">
-                    Категория: {{ task.category_task }}
+                    Категория: {{ task.task_category }}
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ task.task_name }}</h5>

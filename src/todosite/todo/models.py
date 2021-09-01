@@ -1,11 +1,11 @@
 from django.db import models
 
 
-class CategoryTask(models.Model):
+class Category(models.Model):
     """Модель представляет категории, на которые делятся задачи."""
     category_name = models.CharField(
         max_length=20,
-        help_text='укажите категорию задач',
+        help_text='укажите категорию задачи',
         verbose_name='Категория'
     )
 
@@ -27,8 +27,8 @@ class Task(models.Model):
         ('low', 'Низкий'),
     )
     task_name = models.CharField(max_length=40, help_text='что нужно', verbose_name='Задача')
-    category_task = models.ForeignKey(
-        CategoryTask,
+    task_category = models.ForeignKey(
+        Category,
         on_delete=models.SET_NULL,
         null=True,
         help_text='выберите категию задачи',
