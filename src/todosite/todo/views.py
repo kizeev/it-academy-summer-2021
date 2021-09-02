@@ -8,7 +8,7 @@ def category_task_list(request):
     categories = Category.objects.all()
     return render(
         request,
-        'todo/category_task_list.html',
+        'todo/home.html',
         {'tasks': tasks, 'categories': categories, 'title': 'Список задач'},
     )
 
