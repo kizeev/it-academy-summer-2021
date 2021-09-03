@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -8,6 +9,9 @@ class Category(models.Model):
         help_text='укажите категорию задачи',
         verbose_name='Категория'
     )
+
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'category_id': self.pk})
 
     class Meta:
         ordering = ['category_name']
@@ -50,3 +54,6 @@ class Task(models.Model):
     def __str__(self):
         """Строка для представления задачи."""
         return self.task_name
+
+    def get_absolute_url(self):
+        return reverse('view_task', kwargs={'task_id': self.pk})

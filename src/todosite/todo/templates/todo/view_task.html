@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Home :: {{ block.super}}
+Task :: {{ block.super}}
 {% endblock %}
 
 {% block sidebar %}
@@ -9,19 +9,16 @@ Home :: {{ block.super}}
 {% endblock %}
 
 {% block content %}
-{% for task in tasks %}
 <div class="card mb-3">
     <div class="card-header">
-        Категория: <a href="{{ task.task_category.get_absolute_url }}">{{ task.task_category }}</a>
+        Категория: <a href="{{ task_item.task_category.get_absolute_url }}">{{ task_item.task_category }}</a>
     </div>
     <div class="card-body">
         <h5 class="card-title">{{ task.task_name }}</h5>
         <p class="card-text">note...</p>
-        <a href="{{ task.get_absolute_url }}" class="btn btn-primary">Read more...</a>
     </div>
     <div class="card-footer text-muted">
-        {{ task.created|date:'Y-m-d H:i'}}
+        {{ task_item.created|date:'Y-m-d H:i'}}
     </div>
 </div>
-{% endfor %}
 {% endblock %}

@@ -1,35 +1,27 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    {{category.category_name}} :: {{ block.super}}
+{{category.category_name}} :: {{ block.super}}
 {% endblock %}
 
 {% block sidebar %}
-<div class="col-md-4">
-    <div class="list-group">
-        {% for category in categories %}
-        <a href="{% url 'category' category.pk %}" class="list-group-item list-group-item-action">{{ category.category_name }}</a>
-        {% endfor %}
-    </div>
-</div>
+{% include 'inc/_sidebar.html' %}
 {% endblock %}
 
 {% block content %}
-<div class="col-md-4">
-    {% for task in tasks %}
-    <div class="card mb-3">
-        <div class="card-header">
-            Категория: {{ task.task_category }}
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">{{ task.task_name }}</h5>
-            <p class="card-text">note...</p>
-            <a href="/" class="btn btn-primary">Read more...</a>
-        </div>
-        <div class="card-footer text-muted">
-            {{ task.created|date:'Y-m-d H:i'}}
-        </div>
+{% for task in tasks %}
+<div class="card mb-3">
+    <div class="card-header">
+        Категория: {{ task.task_category }}
     </div>
-    {% endfor %}
+    <div class="card-body">
+        <h5 class="card-title">{{ task.task_name }}</h5>
+        <p class="card-text">note...</p>
+        <a href="{{ task.get_absolute_url }}" class="btn btn-primary">Read more...</a>
+    </div>
+    <div class="card-footer text-muted">
+        {{ task.created|date:'Y-m-d H:i'}}
+    </div>
 </div>
+{% endfor %}
 {% endblock %}
