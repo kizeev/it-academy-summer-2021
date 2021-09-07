@@ -1,16 +1,18 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView
 from .forms import TaskForm
 from .models import Category, Task
 
 
-def category_task_list(request):
-    """Функция отображения категорий и задач на домошней странице сайта."""
-    tasks = Task.objects.all()
-    return render(
-        request,
-        'todo/home.html',
-        {'tasks': tasks, 'title': 'Список задач'},
-    )
+class Home(ListView):
+    """Класс для представления списка задач на странице."""
+    model = Task
+    template_name = 'todo/home.html'
+    context_object_name = 'tasks'
+    extra_context = {'title': 'Главная'}
+
+    def get_queryset(self):
+        return Task.objects.filter()  # здесь в скобках можно указать выборку
 
 
 def get_category(request, category_id):
