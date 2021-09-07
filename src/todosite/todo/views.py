@@ -10,6 +10,7 @@ class HomeTasks(ListView):
     template_name = 'todo/home.html'
     context_object_name = 'tasks'
     extra_context = {'title': 'Главная'}
+    paginate_by = 2
 
     def get_queryset(self):
         return Task.objects.filter()  # здесь в скобках можно указать выборку
