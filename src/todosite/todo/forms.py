@@ -3,7 +3,9 @@ from .models import Task
 
 
 class TaskForm(forms.ModelForm):
+    """Форма для добавления новой задачи."""
     class Meta:
+        """Класс, описывающий отображения формы."""
         model = Task
         fields = ['task_name', 'task_category', 'priority']
         widgets = {

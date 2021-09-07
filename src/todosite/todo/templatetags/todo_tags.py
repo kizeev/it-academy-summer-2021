@@ -11,6 +11,6 @@ def get_categories():
 
 
 @register.inclusion_tag('todo/list_categories.html')
-def show_categories(arg1='hello', arg2='world'):
+def show_categories():
     categories = Category.objects.all()
-    return {'categories': categories, 'arg1': arg1, 'arg2': arg2}
+    return {'categories': categories}

@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from .forms import TaskForm
 from .models import Category, Task
 
 
@@ -24,6 +25,18 @@ def get_category(request, category_id):
 
 
 def view_task(request, task_id):
-    # task_item = Task.objects.get(pk=task_id)
-    task_item = get_object_or_404(Task, pk=task_id)
+    """Функция просмотра выбранной задачи."""
+    task_item = get_object_or_404(Task, pk=task_id)  # вернуть задачу, если ее нет - ошибку 404
     return render(request, 'todo/view_task.html', {'task_item': task_item})
+
+
+def add_task(request):
+    """Функция добавления новой задачи."""
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save()
+            return redirect(task)
+    else:
+        form = TaskForm()
+    return render(request, 'todo/add_task.html', {'form': form})
