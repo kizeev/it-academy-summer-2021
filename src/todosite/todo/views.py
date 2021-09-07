@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView, CreateView
 from .forms import TaskForm
 from .models import Category, Task
 
 
-class Home(ListView):
+class HomeTasks(ListView):
     """Класс для представления списка задач на странице."""
     model = Task
     template_name = 'todo/home.html'
@@ -15,30 +15,33 @@ class Home(ListView):
         return Task.objects.filter()  # здесь в скобках можно указать выборку
 
 
-def get_category(request, category_id):
-    """Функция отображения задач по выбранной категории."""
-    tasks = Task.objects.filter(task_category_id=category_id)
-    category = Category.objects.get(pk=category_id)
-    return render(
-        request,
-        'todo/category.html',
-        {'tasks': tasks, 'category': category, 'title': 'Список задач'},
-    )
+class TasksByCategory(ListView):
+    """Класс для представления списка задач по категориям."""
+    model = Task
+    template_name = 'todo/home.html'
+    context_object_name = 'tasks'
+    allow_empty = False
+
+    def get_queryset(self):
+        """Отображение выбранной категории в заголовке страницы."""
+        return Task.objects.filter(task_category_id=self.kwargs['category_id'])
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        """Отображение задач по выбранной категории."""
+        context = super().get_context_data(**kwargs)
+        context['title'] = Category.objects.get(pk=self.kwargs['category_id'])
+        return context
 
 
-def view_task(request, task_id):
-    """Функция просмотра выбранной задачи."""
-    task_item = get_object_or_404(Task, pk=task_id)  # вернуть задачу, если ее нет - ошибку 404
-    return render(request, 'todo/view_task.html', {'task_item': task_item})
+class ViewTask(DetailView):
+    """Класс для представления выбранной задачи."""
+    model = Task
+    pk_url_kwarg = 'task_id'
+    template_name = 'todo/view_task.html'
+    context_object_name = 'task_details'
 
 
-def add_task(request):
-    """Функция добавления новой задачи."""
-    if request.method == 'POST':
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            task = form.save()
-            return redirect(task)
-    else:
-        form = TaskForm()
-    return render(request, 'todo/add_task.html', {'form': form})
+class AddTask(CreateView):
+    """Класс для создания новой задачи."""
+    form_class = TaskForm
+    template_name = 'todo/add_task.html'
