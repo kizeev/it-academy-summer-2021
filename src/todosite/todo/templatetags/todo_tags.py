@@ -1,4 +1,5 @@
 from django import template
+from django.db.models import Count
 
 from ..models import Category
 
@@ -12,5 +13,6 @@ def get_categories():
 
 @register.inclusion_tag('todo/list_categories.html')
 def show_categories():
-    categories = Category.objects.all()
+    # categories = Category.objects.all()
+    categories = Category.objects.annotate(cnt=Count('task'))  # количество задач в категории
     return {'categories': categories}
