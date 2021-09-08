@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from .models import Task
 
 
@@ -13,3 +15,13 @@ class TaskForm(forms.ModelForm):
             'task_category': forms.Select(attrs={'class': 'form-control'}),
             'priority': forms.Select(attrs={'class': 'form-control'}),
         }
+
+
+class UserRegisterForm(UserCreationForm):
+    """Форма для регистрации нового пользователя."""
+    email = forms.EmailField()
+
+    class Meta:
+        """Класс, описывающий отображения формы."""
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')

@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
-from .forms import TaskForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from .forms import TaskForm, UserRegisterForm
 from .models import Category, Task
 
 
@@ -46,3 +48,23 @@ class AddTask(CreateView):
     """Класс для создания новой задачи."""
     form_class = TaskForm
     template_name = 'todo/add_task.html'
+
+
+def register(request):
+    """Функция для регистрации на сайте."""
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Вы успешно зарегистрировались')
+            return redirect('login')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'todo/register.html', {'form': form})
+
+
+def login(request):
+    """Функция для авторизации на сайте."""
+    return render(request, 'todo/login.html')
