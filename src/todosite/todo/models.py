@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 
 class Category(models.Model):
@@ -30,6 +31,7 @@ class Task(models.Model):
         ('medium', 'Средний'),
         ('low', 'Низкий'),
     )
+
     task_name = models.CharField(max_length=40, help_text='что нужно', verbose_name='Задача')
     task_category = models.ForeignKey(
         Category,
@@ -45,6 +47,7 @@ class Task(models.Model):
         default='low',
         verbose_name='Приоритет'
     )
+    tags = TaggableManager()
 
     class Meta:
         ordering = ['-created']

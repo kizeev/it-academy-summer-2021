@@ -1,9 +1,11 @@
+from django.core.mail import send_mail
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
-from .forms import TaskForm, UserRegisterForm, UserLoginForm
+from taggit.models import Tag
+from .forms import TaskForm, UserRegisterForm, UserLoginForm, EmailForm
 from .models import Category, Task
 
 
@@ -84,6 +86,37 @@ def user_login(request):
 
 
 def user_logout(request):
-    """Функция для из учетной записи."""
+    """Функция для выхода из учетной записи."""
     logout(request)
     return redirect('login')
+
+
+def email_send(request):
+    """Функция для отправки электронной почты."""
+    if request.method == 'POST':
+        form = EmailForm(data=request.POST)
+        if form.is_valid():
+            mail = send_mail(
+                form.cleaned_data['subject'],
+                form.cleaned_data['content'],
+                'natusutprimussim@gmail.com',
+                ['kizalvic@gmail.com'],
+                fail_silently=False,
+            )
+            if mail:
+                messages.success(request, 'Письмо отправлено')
+                return redirect('home')
+            else:
+                messages.error(request, 'Ошибка отправки')
+    else:
+        form = EmailForm()
+    return render(request, 'todo/mail.html', {'form': form})
+
+
+def tasks_by_tag(request, tag_slug=None):
+    task_list = Task.objects.all()
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        task_list = task_list.filter(tags__in=[tag])
+    return render(request, 'todo/home.html', {'task_list': task_list, 'tag': tag})

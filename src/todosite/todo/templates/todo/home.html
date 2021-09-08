@@ -17,6 +17,7 @@
     <div class="card-body">
         <h5 class="card-title">{{ task.task_name }}</h5>
         <p class="card-text">note...</p>
+        <p class="tags">Tags: {{ task.tags.all|join:", " }}</p>
         <a href="{{ task.get_absolute_url }}" class="btn btn-primary">Read more...</a>
     </div>
     <div class="card-footer text-muted">

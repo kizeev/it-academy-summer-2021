@@ -8,7 +8,7 @@ admin.site.register(Category)
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     """Настройка отображения модели Task на сайте администрирования."""
-    list_display = ('task_name', 'task_category', 'created', 'priority')
-    list_filter = ('task_category', 'created', 'priority')
+    list_display = ('task_name', 'task_category', 'created', 'priority', 'tags')
+    list_filter = ('task_category', 'created', 'priority', 'tags')
     search_fields = ('task_name',)
 

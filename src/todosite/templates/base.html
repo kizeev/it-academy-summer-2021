@@ -35,6 +35,15 @@
                 {% endfor %}
             {% endif %}
 
+            <p class="tags">
+                Tags: {{ tag.name }}
+                {% for i in tag %}
+                <a href="{% url 'tag/tag_slug/' tag.slug %}">
+                    {{ i.name }}
+                </a>
+                {% endfor %}
+            </p>
+
             {% block content %} CONTENT {% endblock %}
 
             {% if page_obj.has_other_pages %}

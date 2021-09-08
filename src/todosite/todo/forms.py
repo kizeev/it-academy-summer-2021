@@ -36,3 +36,14 @@ class UserLoginForm(AuthenticationForm):
         label='Пароль',
         widget=forms.PasswordInput(attrs={'class': 'form-control'})
     )
+
+
+class EmailForm(forms.Form):
+    subject = forms.CharField(
+        label='theme',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    content = forms.CharField(
+        label='content',
+        widget=forms.Textarea(attrs={'class': 'form-control'})
+    )
