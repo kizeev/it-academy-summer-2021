@@ -8,5 +8,6 @@ urlpatterns = [
     path('task/<int:task_id>/', ViewTask.as_view(), name='view_task'),
     path('task/add-task/', AddTask.as_view(), name='add_task'),
     path('register', register, name='register'),
-    path('login', login, name='login'),
+    path('login', user_login, name='login'),
+    path('logout', user_logout, name='logout'),
 ]
