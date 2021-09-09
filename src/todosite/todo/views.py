@@ -114,9 +114,9 @@ def email_send(request):
 
 
 def tasks_by_tag(request, tag_slug=None):
-    task_list = Task.objects.all()
+    tasks_list = Task.objects.all()
     tag = None
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
-        task_list = task_list.filter(tags__in=[tag])
-    return render(request, 'todo/home.html', {'task_list': task_list, 'tag': tag})
+        tasks_list = tasks_list.filter(tags__in=[tag])
+    return render(request, 'todo/tags.html', {'tasks_list': tasks_list, 'tag': tag})

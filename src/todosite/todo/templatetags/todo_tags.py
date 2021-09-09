@@ -1,7 +1,7 @@
 from django import template
 from django.db.models import Count
 
-from ..models import Category
+from ..models import Category, Task
 
 register = template.Library()
 
@@ -16,3 +16,8 @@ def show_categories():
     # categories = Category.objects.all()
     categories = Category.objects.annotate(cnt=Count('task'))  # количество задач в категории
     return {'categories': categories}
+
+
+@register.simple_tag
+def get_tags():
+    return Task.tags.all()

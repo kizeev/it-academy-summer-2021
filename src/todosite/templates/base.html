@@ -16,10 +16,12 @@
 
 <div class="container mt-3">
     <div class="row">
+
         <div class="col-md-3">
             {% block sidebar %} SIDEBAR {% endblock %}
         </div>
-        <div class="col-md-9">
+
+        <div class="col-md-6">
 
             {% if messages %}
                 {% for message in messages %}
@@ -34,15 +36,6 @@
                     {% endif %}
                 {% endfor %}
             {% endif %}
-
-            <p class="tags">
-                Tags: {{ tag.name }}
-                {% for i in tag %}
-                <a href="{% url 'tag/tag_slug/' tag.slug %}">
-                    {{ i.name }}
-                </a>
-                {% endfor %}
-            </p>
 
             {% block content %} CONTENT {% endblock %}
 
@@ -86,6 +79,10 @@
             </nav>
             {% endif %}
 
+        </div>
+
+        <div class="col-md-3">
+            {% include 'inc/_tags.html' %}
         </div>
 
 

@@ -1,0 +1,8 @@
+{% load todo_tags %}
+<p class="tags">
+    {% get_tags as tags %}
+    Теги:
+    {% for tag in tags %}
+    <a href="{% url 'tasks_by_tag' tag.slug %}">{{ tag.name }}</a>
+    {% endfor %}
+</p>
