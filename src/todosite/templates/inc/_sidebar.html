@@ -1,13 +1,7 @@
 {% load todo_tags %}
-{% comment %}
-<div class="list-group">
-    {% get_categories as categories %}
-    {% for category in categories %}
-    <a href="{% url 'category' category.pk %}" class="list-group-item list-group-item-action">{{category.category_name }}</a>
-    {% endfor %}
-</div>
 
-<br>
-{% endcomment %}
+{% if request.user.is_authenticated %}
 
 {% show_categories %}
+
+{% endif %}

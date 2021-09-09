@@ -1,4 +1,7 @@
 {% load todo_tags %}
+
+{% if request.user.is_authenticated %}
+
 <p class="tags">
     {% get_tags as tags %}
     Теги:
@@ -6,3 +9,5 @@
     <a href="{% url 'tasks_by_tag' tag.slug %}">{{ tag.name }}</a>
     {% endfor %}
 </p>
+
+{% endif %}

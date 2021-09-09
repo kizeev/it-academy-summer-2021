@@ -2,6 +2,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from taggit.models import Tag
@@ -66,7 +67,7 @@ def register(request):
             messages.error(request, 'Ошибка регистрации')
     else:
         form = UserRegisterForm()
-    return render(request, 'todo/register.html', {'form': form})
+    return render(request, 'registration/register.html', {'form': form})
 
 
 def user_login(request):
@@ -82,7 +83,7 @@ def user_login(request):
             messages.error(request, 'Ошибка регистрации')
     else:
         form = UserLoginForm()
-    return render(request, 'todo/login.html', {'form': form})
+    return render(request, 'registration/login.html', {'form': form})
 
 
 def user_logout(request):

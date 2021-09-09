@@ -9,6 +9,9 @@
 {% endblock %}
 
 {% block content %}
+
+{% if request.user.is_authenticated %}
+
 {% for task in tasks %}
 <div class="card mb-3">
     <div class="card-header">
@@ -26,4 +29,9 @@
 
 </div>
 {% endfor %}
+
+{% endif %}
+
 {% endblock %}
+
+
