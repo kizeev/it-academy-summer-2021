@@ -47,7 +47,7 @@ class Task(models.Model):
         default='low',
         verbose_name='Приоритет'
     )
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     class Meta:
         ordering = ['-created']

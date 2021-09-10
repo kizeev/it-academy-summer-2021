@@ -6,7 +6,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from taggit.models import Tag
-from .forms import TaskForm, UserRegisterForm, UserLoginForm, EmailForm
+from .forms import TaskForm, CategoryForm, UserRegisterForm, UserLoginForm, EmailForm
 from .models import Category, Task
 
 
@@ -27,7 +27,7 @@ class TasksByCategory(ListView):
     model = Task
     template_name = 'todo/home.html'
     context_object_name = 'tasks'
-    allow_empty = False
+    allow_empty = True
 
     def get_queryset(self):
         """Отображение выбранной категории в заголовке страницы."""
@@ -52,6 +52,13 @@ class AddTask(CreateView):
     """Класс для создания новой задачи."""
     form_class = TaskForm
     template_name = 'todo/add_task.html'
+
+
+class AddCategory(CreateView):
+    """Класс для создания новой категории."""
+    form_class = CategoryForm
+    template_name = 'todo/add_category.html'
+
 
 
 def register(request):

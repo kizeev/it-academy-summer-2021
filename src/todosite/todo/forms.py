@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from .models import Task
+from .models import Task, Category
 
 
 class TaskForm(forms.ModelForm):
@@ -14,8 +14,17 @@ class TaskForm(forms.ModelForm):
             'task_name': forms.TextInput(attrs={'class': 'form-control'}),
             'task_category': forms.Select(attrs={'class': 'form-control'}),
             'priority': forms.Select(attrs={'class': 'form-control'}),
-            'tags': forms.TextInput(attrs={'class': 'form-control'}),
+            'tags': forms.TextInput(attrs=None),
         }
+
+
+class CategoryForm(forms.ModelForm):
+    """Форма для добавления новой категории."""
+    class Meta:
+        """Класс, описывающий отображения формы."""
+        model = Category
+        fields = ['category_name']
+        widgets = {'category_name': forms.TextInput(attrs={'class': 'form-control'})}
 
 
 class UserRegisterForm(UserCreationForm):
