@@ -1,8 +1,21 @@
-#welcome{
-    text-align: center;
-}
 #category-title{
     text-align: center;
     margin-bottom: 0.5;
-    font-size: 24px;
+    font-size: 130%;
+}
+.tags{
+    font: bold italic 90% serif;
+}
+#task-category{
+    text-align: center;
+    font-size: 130%;
+}
+.card-header{
+    margin-bottom: 0;
+}
+.card-text{
+    font: italic 100% serif;
+}
+.card-body{
+    padding: 0.5rem 1rem;
 }

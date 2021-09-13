@@ -5,12 +5,11 @@
 {% for task in tasks %}
 <div class="card mb-3">
     <div class="card-header">
-        Категория: <a href="{{ task.task_category.get_absolute_url }}">{{ task.task_category }}</a>
+        <h6>{{ task.task_name }}</h6>
     </div>
     <div class="card-body">
-        <h5 class="card-title">{{ task.task_name }}</h5>
-        <p class="card-text">note...</p>
-        <p class="tags">Tags: {{ task.tags.all|join:", " }}</p>
+        <p class="card-text">{{ task.notes }}</p>
+        <p class="tags">{{ task.tags.all|join:", " }}</p>
         <a href="{{ task.get_absolute_url }}" class="btn btn-primary">Read more...</a>
     </div>
     <div class="card-footer text-muted">
@@ -19,5 +18,46 @@
 
 </div>
 {% endfor %}
+
+ <!--Пагинация-->
+            {% if page_obj.has_other_pages %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}"> <</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#"> <</a>
+                    </li>
+                    {% endif %}
+
+                    {% for page in page_obj.paginator.page_range %}
+                        {% if page_obj.number == page %}
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}"> ></a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#"> ></a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+            {% endif %}
 
 {% endif %}

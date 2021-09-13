@@ -23,7 +23,7 @@ class HomeTasks(ListView):
 class TasksByCategory(ListView):
     """Класс для представления списка задач по категориям."""
     model = Task
-    template_name = 'todo/home.html'
+    template_name = 'todo/tasks_by_category.html'
     context_object_name = 'tasks'
     allow_empty = True
     paginate_by = 2

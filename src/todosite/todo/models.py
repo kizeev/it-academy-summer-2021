@@ -12,9 +12,10 @@ class Category(models.Model):
     )
 
     def get_absolute_url(self):
-        return reverse('category', kwargs={'category_id': self.pk})
+        return reverse('tasks_by_category', kwargs={'category_id': self.pk})
 
     class Meta:
+        """Класс, описывающий отображение категории."""
         ordering = ['category_name']
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
@@ -41,6 +42,8 @@ class Task(models.Model):
         verbose_name='Категория',
     )
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создано')
+    due_date = models.DateField(null=True, verbose_name='Срок выполнения')
+    notes = models.CharField(max_length=250, verbose_name='заметки', blank=True)
     priority = models.CharField(
         max_length=10,
         choices=PRIORITY_CHOICES,
@@ -50,6 +53,7 @@ class Task(models.Model):
     tags = TaggableManager(blank=True)
 
     class Meta:
+        """Класс, описывающий отображение задачи."""
         ordering = ['-created']
         verbose_name = 'Задача'
         verbose_name_plural = 'Задачи'
