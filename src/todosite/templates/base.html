@@ -14,17 +14,20 @@
 </head>
 <body>
 
+<!--Панель навигации-->
 {% include 'inc/_nav.html' %}
 
 <div class="container mt-3">
     <div class="row">
 
+        <!--Сайдбар-->
         <div class="col-md-3">
-            {% block sidebar %} SIDEBAR {% endblock %}
+            {% include 'inc/_sidebar.html' %}
         </div>
 
         <div class="col-md-6">
 
+            <!--Всплывающие сообщения-->
             {% if messages %}
                 {% for message in messages %}
                     {% if message.tags  == 'error' %}
@@ -39,10 +42,10 @@
                 {% endfor %}
             {% endif %}
 
+            <!--Контент-->
             {% block content %} CONTENT {% endblock %}
 
-            {% if request.user.is_authenticated %}
-
+            <!--Пагинация-->
             {% if page_obj.has_other_pages %}
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
@@ -83,10 +86,9 @@
             </nav>
             {% endif %}
 
-            {% endif %}
-
         </div>
 
+        <!--Теги-->
         <div class="col-md-3">
             {% include 'inc/_tags.html' %}
         </div>

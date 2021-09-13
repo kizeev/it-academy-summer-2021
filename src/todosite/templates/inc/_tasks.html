@@ -1,18 +1,11 @@
-{% extends 'base.html' %}
+{% load todo_tags %}
 
-{% block title %}
-{{ title }} :: {{ block.super}}
-{% endblock %}
+{% if request.user.is_authenticated %}
 
-{% block sidebar %}
-{% include 'inc/_sidebar.html' %}
-{% endblock %}
-
-{% block content %}
 {% for task in tasks %}
 <div class="card mb-3">
     <div class="card-header">
-        Категория: {{ task.task_category }}
+        Категория: <a href="{{ task.task_category.get_absolute_url }}">{{ task.task_category }}</a>
     </div>
     <div class="card-body">
         <h5 class="card-title">{{ task.task_name }}</h5>
@@ -23,6 +16,8 @@
     <div class="card-footer text-muted">
         {{ task.created|date:'Y-m-d H:i'}}
     </div>
+
 </div>
 {% endfor %}
-{% endblock %}
+
+{% endif %}

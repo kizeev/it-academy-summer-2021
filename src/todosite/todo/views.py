@@ -1,8 +1,6 @@
 from django.core.mail import send_mail
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
-from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from taggit.models import Tag
@@ -28,20 +26,21 @@ class TasksByCategory(ListView):
     template_name = 'todo/home.html'
     context_object_name = 'tasks'
     allow_empty = True
+    paginate_by = 2
 
     def get_queryset(self):
-        """Отображение выбранной категории в заголовке страницы."""
+        """Отображение задач по выбранной категории."""
         return Task.objects.filter(task_category_id=self.kwargs['category_id'])
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        """Отображение задач по выбранной категории."""
+        """Отображение выбранной категории в заголовке страницы."""
         context = super().get_context_data(**kwargs)
         context['title'] = Category.objects.get(pk=self.kwargs['category_id'])
         return context
 
 
 class ViewTask(DetailView):
-    """Класс для представления выбранной задачи."""
+    """Класс для отображения выбранной задачи."""
     model = Task
     pk_url_kwarg = 'task_id'
     template_name = 'todo/view_task.html'
@@ -58,7 +57,6 @@ class AddCategory(CreateView):
     """Класс для создания новой категории."""
     form_class = CategoryForm
     template_name = 'todo/add_category.html'
-
 
 
 def register(request):
@@ -122,9 +120,10 @@ def email_send(request):
 
 
 def tasks_by_tag(request, tag_slug=None):
+    """Функция для выборки задач по тегам."""
     tasks_list = Task.objects.all()
     tag = None
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         tasks_list = tasks_list.filter(tags__in=[tag])
-    return render(request, 'todo/tags.html', {'tasks_list': tasks_list, 'tag': tag})
+    return render(request, 'todo/tags.html', {'tasks': tasks_list, 'tag': tag})
