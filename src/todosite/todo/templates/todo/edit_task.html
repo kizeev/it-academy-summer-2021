@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Добавить задачу :: {{ block.super}}
+Редактировать задачу :: {{ block.super}}
 {% endblock %}
 
 {% block content %}
 
-<h1>Добавить задачу</h1>
+<h4 align="center">Редактировать задачу</h4>
 
 <form action="{% url 'edit_task' task.pk %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-primary btn-block">Добавить задачу</button>
+    <button type="submit" class="btn btn-primary btn-block">Редактировать</button>
 </form>
 
 {% endblock %}

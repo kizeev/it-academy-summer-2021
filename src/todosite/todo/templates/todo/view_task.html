@@ -1,16 +1,11 @@
 {% extends 'base.html' %}
 
+{% block title %}
+Задача:: {{ block.super}}
+{% endblock %}
+
 {% block content %}
-<div class="card mb-3">
-    <div class="card-header">
-        Категория: <a href="{{ task_details.task_category.get_absolute_url }}">{{ task_details.task_category }}</a>
-    </div>
-    <div class="card-body">
-        <h5 class="card-title">{{ task_details.task_name }}</h5>
-        <p class="card-text">note...</p>
-    </div>
-    <div class="card-footer text-muted">
-        {{ task_details.created|date:'Y-m-d H:i'}}
-    </div>
-</div>
+
+{% include 'inc/_tasks.html' %}
+
 {% endblock %}

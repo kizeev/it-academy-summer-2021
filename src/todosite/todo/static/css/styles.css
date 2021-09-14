@@ -5,6 +5,7 @@
 }
 .tags{
     font: bold italic 90% serif;
+    margin-bottom: 0;
 }
 #task-category{
     text-align: center;
@@ -12,13 +13,25 @@
 }
 .card-header{
     margin-bottom: 0;
+    background-color: rgb(222 224 226);
+}
+.card-footer{
+    background-color: rgb(222 224 226);
 }
 .card-text{
     font: italic 100% serif;
+    margin-bottom: 0;
 }
 .card-body{
+    background-color: rgb(222 224 226 / 40%);
     padding: 0.5rem 1rem;
 }
 #due-date{
     float: right;
+}
+#edit-delete{
+    float: right;
+}
+#task-name{
+    font: bold;
 }

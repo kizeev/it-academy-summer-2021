@@ -1,6 +1,9 @@
 from django import forms
+from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from django.forms import SelectDateWidget
+
 from .models import Task, Category
 
 
@@ -16,7 +19,7 @@ class TaskForm(forms.ModelForm):
             'priority': forms.Select(attrs={'class': 'form-control'}),
             'notes': forms.TextInput(attrs=None),
             'tags': forms.TextInput(attrs=None),
-            'due_date': forms.DateInput(attrs=None),
+            'due_date': forms.DateInput(),
         }
 
 

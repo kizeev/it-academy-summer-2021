@@ -2,7 +2,7 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from taggit.models import Tag
 from .forms import TaskForm, CategoryForm, UserRegisterForm, UserLoginForm, EmailForm
 from .models import Category, Task
@@ -59,6 +59,15 @@ class EditTask(UpdateView):
     pk_url_kwarg = 'task_id'
     template_name = 'todo/edit_task.html'
     form_class = TaskForm
+    success_url = '/todo/'
+
+
+class DeleteTask(DeleteView):
+    """Класс для удаления выбранной задачи."""
+    model = Task
+    template_name = 'todo/delete_task.html'
+    success_url = '/todo/'
+    pk_url_kwarg = 'task_id'
 
 
 class AddCategory(CreateView):

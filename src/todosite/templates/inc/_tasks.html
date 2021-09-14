@@ -5,12 +5,19 @@
 {% for task in tasks %}
 <div class="card mb-3">
     <div class="card-header">
-        <h6>{{ task.task_name }}</h6>
+        <span id="task-name">{{ task.task_name }}</span>
+        <span id="edit-delete">
+            <a href="{% url 'edit_task' task.pk %}">
+                <img src="{% url 'home' %}static/edit.png" alt="edit" height="25">
+            </a>
+            <a href="{% url 'delete_task' task.pk %}">
+                <img src="{% url 'home' %}static/delete.png" alt="delete" height="25">
+            </a>
+        </span>
     </div>
     <div class="card-body">
-        <p class="card-text">{{ task.notes }}</p>
-        <p class="tags">теги: {{ task.tags.all|join:", " }}</p>
-        <a href="{{ task.get_absolute_url }}" class="btn btn-primary">Read more...</a>
+        <p class="card-text">Заметки: {{ task.notes }}</p>
+        <p class="tags">Теги: {{ task.tags.all|join:", " }}</p>
     </div>
     <div class="card-footer text-muted">
         <span>создано: {{ task.created|date:'Y-m-d H:i' }}</span>
