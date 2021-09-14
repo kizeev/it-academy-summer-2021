@@ -2,7 +2,7 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from taggit.models import Tag
 from .forms import TaskForm, CategoryForm, UserRegisterForm, UserLoginForm, EmailForm
 from .models import Category, Task
@@ -51,6 +51,14 @@ class AddTask(CreateView):
     """Класс для создания новой задачи."""
     form_class = TaskForm
     template_name = 'todo/add_task.html'
+
+
+class EditTask(UpdateView):
+    """Класс для редактирования существующей задачи."""
+    model = Task
+    pk_url_kwarg = 'task_id'
+    template_name = 'todo/edit_task.html'
+    form_class = TaskForm
 
 
 class AddCategory(CreateView):

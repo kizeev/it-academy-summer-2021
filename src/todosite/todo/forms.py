@@ -9,12 +9,14 @@ class TaskForm(forms.ModelForm):
     class Meta:
         """Класс, описывающий отображения формы."""
         model = Task
-        fields = ['task_name', 'task_category', 'priority', 'tags']
+        fields = ['task_name', 'task_category', 'due_date', 'notes', 'priority', 'tags']
         widgets = {
             'task_name': forms.TextInput(attrs={'class': 'form-control'}),
             'task_category': forms.Select(attrs={'class': 'form-control'}),
             'priority': forms.Select(attrs={'class': 'form-control'}),
+            'notes': forms.TextInput(attrs=None),
             'tags': forms.TextInput(attrs=None),
+            'due_date': forms.DateInput(attrs=None),
         }
 
 

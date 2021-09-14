@@ -19,3 +19,6 @@
 .card-body{
     padding: 0.5rem 1rem;
 }
+#due-date{
+    float: right;
+}

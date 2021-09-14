@@ -9,11 +9,14 @@
     </div>
     <div class="card-body">
         <p class="card-text">{{ task.notes }}</p>
-        <p class="tags">{{ task.tags.all|join:", " }}</p>
+        <p class="tags">теги: {{ task.tags.all|join:", " }}</p>
         <a href="{{ task.get_absolute_url }}" class="btn btn-primary">Read more...</a>
     </div>
     <div class="card-footer text-muted">
-        {{ task.created|date:'Y-m-d H:i'}}
+        <span>создано: {{ task.created|date:'Y-m-d H:i' }}</span>
+        {% if task.due_date is not None %}
+        <span id="due-date">срок выполнения: {{ task.due_date|date:'Y-m-d' }}</span>
+        {% endif %}
     </div>
 
 </div>
