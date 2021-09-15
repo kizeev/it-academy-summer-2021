@@ -21,7 +21,7 @@
     </div>
     <div class="card-footer text-muted">
         <span>создано: {{ task.created|date:'Y-m-d H:i' }}</span>
-        {% if task.due_date is not None %}
+        {% if task.due_date %}
         <span id="due-date">срок выполнения: {{ task.due_date|date:'Y-m-d' }}</span>
         {% endif %}
     </div>

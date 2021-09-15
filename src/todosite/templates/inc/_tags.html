@@ -6,7 +6,7 @@
     {% get_tags as tags %}
     Теги:
     {% for tag in tags %}
-    <a href="{% url 'tasks_by_tag' tag.slug %}">{{ tag.name }}</a>
+    <a href="{% url 'tasks_by_tag' tag.id %}">{{ tag.name }}</a>
     {% endfor %}
 </p>
 

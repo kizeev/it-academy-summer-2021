@@ -136,11 +136,17 @@ def email_send(request):
     return render(request, 'todo/mail.html', {'form': form})
 
 
-def tasks_by_tag(request, tag_slug=None):
+def tasks_by_tag(request, tag_id=None):
     """Функция для выборки задач по тегам."""
     tasks_list = Task.objects.all()
     tag = None
-    if tag_slug:
-        tag = get_object_or_404(Tag, slug=tag_slug)
+    if tag_id:
+        tag = get_object_or_404(Tag, id=tag_id)
         tasks_list = tasks_list.filter(tags__in=[tag])
     return render(request, 'todo/tags.html', {'tasks': tasks_list, 'tag': tag})
+
+
+def tasks_by_date(request, year, month, day):
+    """Функция для выборки задач по дате."""
+    tasks_list = Task.objects.filter(due_date__year=year, due_date__month=month, due_date__day=day)
+    return render(request, 'todo/tasks_by_date.html', {'tasks': tasks_list})

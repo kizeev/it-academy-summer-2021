@@ -1,5 +1,5 @@
 from django.db import models
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from taggit.managers import TaggableManager
 
 
@@ -42,7 +42,7 @@ class Task(models.Model):
         verbose_name='Категория',
     )
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создано')
-    due_date = models.DateField(null=True, verbose_name='Срок выполнения')
+    due_date = models.DateField(null=True, blank=True, verbose_name='Срок выполнения')
     notes = models.CharField(max_length=250, verbose_name='заметки', blank=True)
     priority = models.CharField(
         max_length=10,

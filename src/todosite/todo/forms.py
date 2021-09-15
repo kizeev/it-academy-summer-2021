@@ -7,6 +7,11 @@ from django.forms import SelectDateWidget
 from .models import Task, Category
 
 
+class DueDateInput(forms.DateInput):
+    """Класс добавляет виджет календаря в форму добавления задачи."""
+    input_type = 'date'
+
+
 class TaskForm(forms.ModelForm):
     """Форма для добавления новой задачи."""
     class Meta:
@@ -17,9 +22,9 @@ class TaskForm(forms.ModelForm):
             'task_name': forms.TextInput(attrs={'class': 'form-control'}),
             'task_category': forms.Select(attrs={'class': 'form-control'}),
             'priority': forms.Select(attrs={'class': 'form-control'}),
-            'notes': forms.TextInput(attrs=None),
-            'tags': forms.TextInput(attrs=None),
-            'due_date': forms.DateInput(),
+            'notes': forms.Textarea(attrs={'rows': '3'}),
+            'tags': forms.TextInput(attrs={'class': 'form-control'}),
+            'due_date': DueDateInput(),
         }
 
 

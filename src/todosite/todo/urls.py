@@ -5,7 +5,8 @@ from .views import *
 urlpatterns = [
     path('', HomeTasks.as_view(), name='home'),
     path('category/<int:category_id>/', TasksByCategory.as_view(), name='tasks_by_category'),
-    path('tag/<slug:tag_slug>/', tasks_by_tag, name='tasks_by_tag'),
+    path('date/<int:year>-<int:month>-<int:day>/', tasks_by_date, name='tasks_by_date'),
+    path('tag/<int:tag_id>/', tasks_by_tag, name='tasks_by_tag'),
     path('task/<int:task_id>/', ViewTask.as_view(), name='view_task'),
     path('task/<int:task_id>/edit/', EditTask.as_view(), name='edit_task'),
     path('task/<int:task_id>/delete/', DeleteTask.as_view(), name='delete_task'),

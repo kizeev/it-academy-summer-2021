@@ -1,7 +1,7 @@
 #category-title{
     text-align: center;
     margin-bottom: 0.5;
-    font-size: 130%;
+    font-size: 120%;
 }
 .tags{
     font: bold italic 90% serif;
@@ -13,17 +13,17 @@
 }
 .card-header{
     margin-bottom: 0;
-    background-color: rgb(222 224 226);
+    background-color: rgb(222 224 226 / 80%);
 }
 .card-footer{
-    background-color: rgb(222 224 226);
+    background-color: rgb(222 224 226 / 20%);
 }
 .card-text{
     font: italic 100% serif;
     margin-bottom: 0;
 }
 .card-body{
-    background-color: rgb(222 224 226 / 40%);
+    background-color: rgb(222 224 226 / 10%);
     padding: 0.5rem 1rem;
 }
 #due-date{
@@ -33,5 +33,5 @@
     float: right;
 }
 #task-name{
-    font: bold;
+    font: 140% serif;
 }
