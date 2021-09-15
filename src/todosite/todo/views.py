@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.contrib.auth import login, logout
@@ -77,7 +78,7 @@ class AddCategory(CreateView):
 
 
 def register(request):
-    """Функция для регистрации на сайте."""
+    """Регистрация на сайте."""
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
@@ -93,7 +94,7 @@ def register(request):
 
 
 def user_login(request):
-    """Функция для авторизации на сайте."""
+    """Авторизация на сайте."""
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
         if form.is_valid():
@@ -109,13 +110,13 @@ def user_login(request):
 
 
 def user_logout(request):
-    """Функция для выхода из учетной записи."""
+    """Выход из учетной записи."""
     logout(request)
     return redirect('login')
 
 
 def email_send(request):
-    """Функция для отправки электронной почты."""
+    """Отправка электронной почты."""
     if request.method == 'POST':
         form = EmailForm(data=request.POST)
         if form.is_valid():
@@ -137,7 +138,7 @@ def email_send(request):
 
 
 def tasks_by_tag(request, tag_id=None):
-    """Функция для выборки задач по тегам."""
+    """Фильтр задач по тегам."""
     tasks_list = Task.objects.all()
     tag = None
     if tag_id:
@@ -146,7 +147,18 @@ def tasks_by_tag(request, tag_id=None):
     return render(request, 'todo/tags.html', {'tasks': tasks_list, 'tag': tag})
 
 
-def tasks_by_date(request, year, month, day):
-    """Функция для выборки задач по дате."""
-    tasks_list = Task.objects.filter(due_date__year=year, due_date__month=month, due_date__day=day)
+def tasks_by_date(request, requested_date):
+    """Фильтр задач по дате выполнения."""
+    tasks_list = Task.objects.all()
+    if requested_date == 'today':
+        today = date.today()
+        tasks_list = tasks_list.filter(due_date=today)
+    elif requested_date == 'tomorrow':
+        tomorrow = date.today() + timedelta(days=1)
+        tasks_list = tasks_list.filter(due_date=tomorrow)
+    elif requested_date == 'week':
+        week = date.today() + timedelta(days=7)
+        tasks_list = tasks_list.filter(due_date__lte=week)
+    elif requested_date == 'all':
+        tasks_list = tasks_list
     return render(request, 'todo/tasks_by_date.html', {'tasks': tasks_list})

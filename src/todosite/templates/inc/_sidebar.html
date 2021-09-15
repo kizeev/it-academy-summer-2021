@@ -2,6 +2,13 @@
 
 {% if request.user.is_authenticated %}
 
+<div class="btn-group btn-group-sm" role="group">
+    <a href="{% url 'tasks_by_date' 'all' %}"><button type="button" class="btn btn-outline-primary">Все</button></a>
+    <a href="{% url 'tasks_by_date' 'today' %}"><button type="button" class="btn btn-outline-primary">Сегодня</button></a>
+    <a href="{% url 'tasks_by_date' 'tomorrow' %}"><button type="button" class="btn btn-outline-primary">Завтра</button></a>
+    <a href="{% url 'tasks_by_date' 'week' %}"><button type="button" class="btn btn-outline-primary">Неделя</button></a>
+</div>
+
 {% show_categories %}
 
 {% endif %}
