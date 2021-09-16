@@ -150,15 +150,27 @@ def tasks_by_tag(request, tag_id=None):
 def tasks_by_date(request, requested_date):
     """Фильтр задач по дате выполнения."""
     tasks_list = Task.objects.all()
+
+    # today = date.today()
+    # tomorrow = date.today() + timedelta(days=1)
+    # week = date.today() + timedelta(days=7)
+
+    due_dates = {
+        'today': date.today(),
+        'tomorrow': date.today() + timedelta(days=1),
+        'week': date.today() + timedelta(days=7)
+    }
+
     if requested_date == 'today':
-        today = date.today()
-        tasks_list = tasks_list.filter(due_date=today)
+        tasks_list = tasks_list.filter(due_date=requested_date)
+
     elif requested_date == 'tomorrow':
-        tomorrow = date.today() + timedelta(days=1)
-        tasks_list = tasks_list.filter(due_date=tomorrow)
+        tasks_list = tasks_list.filter(due_date=requested_date)
+
     elif requested_date == 'week':
-        week = date.today() + timedelta(days=7)
-        tasks_list = tasks_list.filter(due_date__lte=week)
+        tasks_list = tasks_list.filter(due_date__lte=requested_date)
+
     elif requested_date == 'all':
         tasks_list = tasks_list
-    return render(request, 'todo/tasks_by_date.html', {'tasks': tasks_list})
+
+    return render(request, 'todo/tasks_by_date.html', {'tasks': tasks_list, 'due_dates': due_dates})
