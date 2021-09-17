@@ -154,16 +154,16 @@ def tasks_by_date(request, requested_date):
     if requested_date == 'today':
         requested_date = date.today()
         tasks_list = tasks_list.filter(due_date=requested_date)
-
+        title = 'Сегодня'
     elif requested_date == 'tomorrow':
         requested_date = date.today() + timedelta(days=1)
         tasks_list = tasks_list.filter(due_date=requested_date)
-
+        title = 'Завтра'
     elif requested_date == 'week':
         requested_date = date.today() + timedelta(days=7)
         tasks_list = tasks_list.filter(due_date__lte=requested_date)
-
+        title = 'Эта неделя'
     elif requested_date == 'all':
         tasks_list = tasks_list
-
-    return render(request, 'todo/tasks_by_date.html', {'tasks': tasks_list})
+        title = 'Все'
+    return render(request, 'todo/tasks_by_date.html', {'tasks': tasks_list, 'title': title})
