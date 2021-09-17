@@ -15,7 +15,7 @@ class HomeTasks(ListView):
     template_name = 'todo/home.html'
     context_object_name = 'tasks'
     extra_context = {'title': 'Главная'}
-    paginate_by = 2
+    paginate_by = 3
 
     def get_queryset(self):
         return Task.objects.filter()  # здесь в скобках можно указать выборку
@@ -151,26 +151,19 @@ def tasks_by_date(request, requested_date):
     """Фильтр задач по дате выполнения."""
     tasks_list = Task.objects.all()
 
-    # today = date.today()
-    # tomorrow = date.today() + timedelta(days=1)
-    # week = date.today() + timedelta(days=7)
-
-    due_dates = {
-        'today': date.today(),
-        'tomorrow': date.today() + timedelta(days=1),
-        'week': date.today() + timedelta(days=7)
-    }
-
     if requested_date == 'today':
+        requested_date = date.today()
         tasks_list = tasks_list.filter(due_date=requested_date)
 
     elif requested_date == 'tomorrow':
+        requested_date = date.today() + timedelta(days=1)
         tasks_list = tasks_list.filter(due_date=requested_date)
 
     elif requested_date == 'week':
+        requested_date = date.today() + timedelta(days=7)
         tasks_list = tasks_list.filter(due_date__lte=requested_date)
 
     elif requested_date == 'all':
         tasks_list = tasks_list
 
-    return render(request, 'todo/tasks_by_date.html', {'tasks': tasks_list, 'due_dates': due_dates})
+    return render(request, 'todo/tasks_by_date.html', {'tasks': tasks_list})

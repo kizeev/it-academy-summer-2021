@@ -2,11 +2,25 @@
 
 {% if request.user.is_authenticated %}
 
-<div class="btn-group btn-group-sm" role="group">
-    <a href="{% url 'tasks_by_date' 'all' %}"><button type="button" class="btn btn-outline-primary">Все</button>{{ tasks.count }}</a>
-    <a href="{% url 'tasks_by_date' 'today' %}"><button type="button" class="btn btn-outline-primary">Сегодня</button>{{ count_today }}</a>
-    <a href="{% url 'tasks_by_date' 'tomorrow' %}"><button type="button" class="btn btn-outline-primary">Завтра</button>{{ count }}</a>
-    <a href="{% url 'tasks_by_date' 'week' %}"><button type="button" class="btn btn-outline-primary">Неделя</button>{{ count }}</a>
+<!--Дата выполнения и количество задач-->
+{% show_today as today %}
+{% show_tomorrow as tomorrow %}
+{% show_week as week %}
+{% get_tasks as all_tasks %}
+
+<div class="list-group">
+    <a href="{% url 'tasks_by_date' 'all' %}" class="list-group-item list-group-item-action">
+        Все <span class="badge bg-primary rounded-pill">{{ all_tasks.count }}</span>
+    </a>
+    <a href="{% url 'tasks_by_date' 'today' %}" class="list-group-item list-group-item-action">
+        Сегодня <span class="badge bg-primary rounded-pill">{{ today.count }}</span>
+    </a>
+    <a href="{% url 'tasks_by_date' 'tomorrow' %}" class="list-group-item list-group-item-action">
+        Завтра <span class="badge bg-primary rounded-pill">{{ tomorrow.count }}</span>
+    </a>
+    <a href="{% url 'tasks_by_date' 'week' %}" class="list-group-item list-group-item-action">
+        Эта неделя <span class="badge bg-primary rounded-pill">{{ week.count }}</span>
+    </a>
 </div>
 
 {% show_categories %}

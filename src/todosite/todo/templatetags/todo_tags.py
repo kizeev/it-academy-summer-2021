@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from django import template
 from django.db.models import Count
 
@@ -23,3 +24,21 @@ def get_tags():
 def get_tasks():
     """Функция для отображения всех задач."""
     return Task.objects.all()
+
+
+@register.simple_tag()
+def show_today():
+    """Фильтр задач по дате 'сегодня'."""
+    return Task.objects.all().filter(due_date=date.today())
+
+
+@register.simple_tag()
+def show_tomorrow():
+    """Фильтр задач по дате 'завтра'."""
+    return Task.objects.all().filter(due_date=date.today() + timedelta(days=1))
+
+
+@register.simple_tag()
+def show_week():
+    """Фильтр задач по дате 'неделя'."""
+    return Task.objects.all().filter(due_date__lte=date.today() + timedelta(days=7))
