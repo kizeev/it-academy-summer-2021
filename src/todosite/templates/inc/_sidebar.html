@@ -9,7 +9,7 @@
 {% get_tasks as all_tasks %}
 
 <div class="list-group">
-    <a href="{% url 'tasks_by_date' 'all' %}" class="list-group-item list-group-item-action">
+    <a href="{% url 'home' %}" class="list-group-item list-group-item-action">
         Все <span class="badge bg-primary rounded-pill">{{ all_tasks.count }}</span>
     </a>
     <a href="{% url 'tasks_by_date' 'today' %}" class="list-group-item list-group-item-action">
@@ -24,5 +24,15 @@
 </div>
 
 {% show_categories %}
+<hr>
+
+<!--Теги-->
+<p class="tags">
+    {% get_tags as tags %}
+    Теги:
+    {% for tag in tags %}
+    <a href="{% url 'tasks_by_tag' tag.id %}">{{ tag.name }}</a>
+    {% endfor %}
+</p>
 
 {% endif %}

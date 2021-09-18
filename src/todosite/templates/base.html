@@ -17,6 +17,10 @@
 <!--Панель навигации-->
 {% include 'inc/_nav.html' %}
 
+<div id="task-category">
+    {% block header %}kjhkj{% endblock %}
+</div>
+
 <div class="container mt-3">
     <div class="row">
 
@@ -25,7 +29,7 @@
             {% include 'inc/_sidebar.html' %}
         </div>
 
-        <div class="col-md-7">
+        <div class="col-md-6">
 
             <!--Всплывающие сообщения-->
             {% if messages %}
@@ -47,11 +51,9 @@
 
         </div>
 
-        <!--Теги-->
-        <div class="col-md-2">
-            {% include 'inc/_tags.html' %}
+        <div class="col-md-3">
+        {% block viewtask %}{% endblock %}
         </div>
-
 
     </div>
 </div>

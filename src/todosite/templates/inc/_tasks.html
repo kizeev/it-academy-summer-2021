@@ -7,22 +7,14 @@
     <div class="card-header">
         <span id="task-name">{{ task.task_name }}</span>
         <span id="edit-delete">
-            <a href="{% url 'edit_task' task.pk %}">
-                <img src="{% url 'home' %}static/edit.png" alt="edit" height="25">
-            </a>
-            <a href="{% url 'delete_task' task.pk %}">
-                <img src="{% url 'home' %}static/delete.png" alt="delete" height="25">
+            <a href="{% url 'view_task' task.pk %}">
+                <img src="{% url 'home' %}static/view_detail.png" alt="View detail" height="25">
             </a>
         </span>
     </div>
-    <div class="card-body">
-        <p class="card-text">Заметки: {{ task.notes }}</p>
-        <p class="tags">Теги: {{ task.tags.all|join:", " }}</p>
-    </div>
     <div class="card-footer text-muted">
-        <span>создано: {{ task.created|date:'Y-m-d H:i' }}</span>
         {% if task.due_date %}
-        <span id="due-date">срок выполнения: {{ task.due_date|date:'Y-m-d' }}</span>
+        <span id="due-date">{{ task.due_date|date:'Y-m-d' }}</span>
         {% endif %}
     </div>
 
