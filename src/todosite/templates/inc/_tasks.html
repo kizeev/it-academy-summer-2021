@@ -2,7 +2,7 @@
 
 {% if request.user.is_authenticated %}
 
-{% for task in tasks %}
+{% for task in page_obj %}
 <div class="card mb-3">
     <div class="card-header">
         <span id="task-name">{{ task.task_name }}</span>
@@ -11,55 +11,52 @@
                 <img src="{% url 'home' %}static/view_detail.png" alt="View detail" height="25">
             </a>
         </span>
-    </div>
-    <div class="card-footer text-muted">
         {% if task.due_date %}
-        <span id="due-date">{{ task.due_date|date:'Y-m-d' }}</span>
+        <span id="due-date">{{ task.due_date|date:'d-m-Y' }}</span>
         {% endif %}
     </div>
-
 </div>
 {% endfor %}
 
- <!--Пагинация-->
-            {% if page_obj.has_other_pages %}
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
+<!--Пагинация-->
+{% if page_obj.has_other_pages %}
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
 
-                    {% if page_obj.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}"> <</a>
-                    </li>
-                    {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#"> <</a>
-                    </li>
-                    {% endif %}
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}"> <</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#"> <</a>
+        </li>
+        {% endif %}
 
-                    {% for page in page_obj.paginator.page_range %}
-                        {% if page_obj.number == page %}
-                        <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
-                        </li>
-                        {% else %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
-                        </li>
-                        {% endif %}
-                    {% endfor %}
+        {% for page in page_obj.paginator.page_range %}
+        {% if page_obj.number == page %}
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
 
-                    {% if page_obj.has_next %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.next_page_number }}"> ></a>
-                    </li>
-                    {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#"> ></a>
-                    </li>
-                    {% endif %}
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}"> ></a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#"> ></a>
+        </li>
+        {% endif %}
 
-                </ul>
-            </nav>
-            {% endif %}
+    </ul>
+</nav>
+{% endif %}
 
 {% endif %}

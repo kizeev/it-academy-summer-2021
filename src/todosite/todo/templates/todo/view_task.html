@@ -4,6 +4,10 @@
 Задача:: {{ block.super}}
 {% endblock %}
 
+{% block content-title %}
+Детали
+{% endblock %}
+
 {% block content %}
 <div class="card mb-3">
     <div class="card-header">
@@ -13,10 +17,8 @@
                 <img src="{% url 'home' %}static/view_detail.png" alt="View detail" height="25">
             </a>
         </span>
-    </div>
-    <div class="card-footer text-muted">
         {% if task_details.due_date %}
-        <span id="due-date">{{ task_details.due_date|date:'Y-m-d' }}</span>
+        <span id="due-date">{{ task_details.due_date|date:'d-m-Y' }}</span>
         {% endif %}
     </div>
 </div>
@@ -25,7 +27,7 @@
 {% block viewtask %}
 <div class="card mb-3">
     <div class="card-header">
-        <span id="task-name">{{ task_details.task_name }}</span>
+
         <span id="edit-delete">
             <a href="{% url 'edit_task' task_details.pk %}">
                 <img src="{% url 'home' %}static/edit.png" alt="Edit task" height="25">
@@ -39,12 +41,17 @@
     </div>
     <div class="card-body">
         <p class="card-text">Заметки: {{ task_details.notes }}</p>
+    </div>
+    <div class="card-body">
         <p class="tags">Теги: {{ task_details.tags.all|join:", " }}</p>
     </div>
+    <div class="card-body">
+        <p class="card-text">Приоритет: {{ task_details.priority}}</p>
+    </div>
     <div class="card-footer text-muted">
-        <span>создано: {{ task_details.created|date:'Y-m-d H:i' }}</span>
+        <div>создано: {{ task_details.created|date:'Y-m-d H:i' }}</div>
         {% if task_details.due_date %}
-        <span id="due-date">срок выполнения: {{ task_details.due_date|date:'Y-m-d' }}</span>
+        <div>срок выполнения: {{ task_details.due_date|date:'Y-m-d' }}</div>
         {% endif %}
     </div>
 

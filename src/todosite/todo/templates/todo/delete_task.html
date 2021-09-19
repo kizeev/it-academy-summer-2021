@@ -4,11 +4,12 @@
 Удалить задачу :: {{ block.super}}
 {% endblock %}
 
+{% block content-title %}
+Удалить задачу?
+{% endblock %}
+
 {% block content %}
-
 <div align="center">
-    <h4>Удалить задачу?</h4>
-
     <form action="{% url 'delete_task' task.pk %}" method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-primary btn-block">Да</button>
@@ -17,5 +18,4 @@
         </a>
     </form>
 </div>
-
 {% endblock %}

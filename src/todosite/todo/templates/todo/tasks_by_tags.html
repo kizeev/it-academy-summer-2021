@@ -4,8 +4,10 @@
 Теги :: {{ block.super}}
 {% endblock %}
 
+{% block content-title %}
+{{tag}}
+{% endblock %}
+
 {% block content %}
-
 {% include 'inc/_tasks.html' %}
-
 {% endblock %}

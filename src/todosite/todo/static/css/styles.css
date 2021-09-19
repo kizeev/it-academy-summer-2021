@@ -31,7 +31,11 @@
 }
 #edit-delete{
     float: right;
+    margin-left: 10px;
 }
 #task-name{
     font: 140% serif;
+}
+.badge bg-primary rounded-pill{
+    float: right;
 }

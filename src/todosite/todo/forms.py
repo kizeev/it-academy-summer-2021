@@ -1,8 +1,6 @@
 from django import forms
-from django.contrib.admin.widgets import AdminDateWidget
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from django.forms import SelectDateWidget
 
 from .models import Task, Category
 
@@ -17,7 +15,14 @@ class TaskForm(forms.ModelForm):
     class Meta:
         """Класс, описывающий отображения формы."""
         model = Task
-        fields = ['task_name', 'task_category', 'due_date', 'notes', 'priority', 'tags']
+        fields = [
+            'task_name',
+            'task_category',
+            'due_date',
+            'notes',
+            'priority',
+            'tags',
+        ]
         widgets = {
             'task_name': forms.TextInput(attrs={'class': 'form-control'}),
             'task_category': forms.Select(attrs={'class': 'form-control'}),

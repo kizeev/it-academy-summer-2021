@@ -4,9 +4,11 @@
 Добавить категорию :: {{ block.super}}
 {% endblock %}
 
-{% block content %}
+{% block content-title %}
+Добавить категорию
+{% endblock %}
 
-<h4 align="center">Добавить категорию</h4>
+{% block content %}
 
 <form action="{% url 'add_category' %}" method="post">
     {% csrf_token %}

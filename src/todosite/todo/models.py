@@ -50,6 +50,7 @@ class Task(models.Model):
         default='low',
         verbose_name='Приоритет'
     )
+    completed = models.BooleanField(verbose_name='Завершено', default=False, blank=True)
     tags = TaggableManager(blank=True)
 
     class Meta:
