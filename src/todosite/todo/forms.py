@@ -6,7 +6,7 @@ from .models import Task, Category
 
 
 class DueDateInput(forms.DateInput):
-    """Класс добавляет виджет календаря в форму добавления задачи."""
+    """Добавляет виджет календаря в форму добавления задачи."""
     input_type = 'date'
 
 
@@ -53,6 +53,7 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserLoginForm(AuthenticationForm):
+    """Форма для авторизации пользователя."""
     username = forms.CharField(
         label='Имя пользователя',
         widget=forms.TextInput(attrs={'class': 'form-control'})
@@ -64,11 +65,12 @@ class UserLoginForm(AuthenticationForm):
 
 
 class EmailForm(forms.Form):
+    """Форма для отправки почты."""
     subject = forms.CharField(
-        label='theme',
+        label='Тема',
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
     content = forms.CharField(
-        label='content',
+        label='Текст',
         widget=forms.Textarea(attrs={'class': 'form-control'})
     )

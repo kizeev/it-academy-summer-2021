@@ -28,7 +28,7 @@ class TasksByCategory(ListView):
     template_name = 'todo/tasks_by_category.html'
     context_object_name = 'tasks'
     allow_empty = True
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         """Отображение задач по выбранной категории."""
@@ -146,7 +146,7 @@ def tasks_by_tag(request, tag_id=None):
         tag = get_object_or_404(Tag, id=tag_id)
         tasks_list = tasks_list.filter(tags__in=[tag])
 
-    paginator = Paginator(tasks_list, 2)
+    paginator = Paginator(tasks_list, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'todo/tasks_by_tags.html', {'tag': tag, 'page_obj': page_obj})
@@ -172,7 +172,7 @@ def tasks_by_date(request, requested_date):
         tasks_list = tasks_list
         title = 'Все'
 
-    paginator = Paginator(tasks_list, 2)
+    paginator = Paginator(tasks_list, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'todo/tasks_by_date.html', {'title': title, 'page_obj': page_obj})

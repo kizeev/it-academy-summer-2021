@@ -4,9 +4,11 @@
 Почта :: {{ block.super}}
 {% endblock %}
 
-{% block content %}
+{% block content-title %}
+Написать письмо
+{% endblock %}
 
-<h1>Почта</h1>
+{% block content %}
 
 <form method="post">
     {% csrf_token %}
