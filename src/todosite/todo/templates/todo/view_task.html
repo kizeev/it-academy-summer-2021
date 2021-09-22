@@ -48,6 +48,9 @@
     <div class="card-body">
         <p class="card-text">Приоритет: {{ task_details.priority}}</p>
     </div>
+    <div class="card-body">
+        <p class="card-text">Завершено: {{ task_details.completed}}</p>
+    </div>
     <div class="card-footer text-muted">
         <div>создано: {{ task_details.created|date:'Y-m-d H:i' }}</div>
         {% if task_details.due_date %}

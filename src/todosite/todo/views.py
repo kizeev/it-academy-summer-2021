@@ -176,3 +176,6 @@ def tasks_by_date(request, requested_date):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'todo/tasks_by_date.html', {'title': title, 'page_obj': page_obj})
+
+
+def complete_task()

@@ -5,6 +5,11 @@
 {% for task in page_obj %}
 <div class="card mb-3">
     <div class="card-header">
+        <span>
+            <button >
+                <a href="{% url 'complete_task' task.pk %}">Done!
+            </button>
+        </span>
         <span id="task-name">{{ task.task_name }}</span>
         <span id="edit-delete">
             <a href="{% url 'view_task' task.pk %}">

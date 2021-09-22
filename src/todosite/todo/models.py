@@ -65,3 +65,7 @@ class Task(models.Model):
 
     def get_absolute_url(self):
         return reverse('view_task', kwargs={'task_id': self.pk})
+
+    def complete_task(self):
+        """Завершить задачу."""
+        self.completed = True
