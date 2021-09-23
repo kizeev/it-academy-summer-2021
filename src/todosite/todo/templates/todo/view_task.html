@@ -9,19 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="card mb-3">
-    <div class="card-header">
-        <span id="task-name">{{ task_details.task_name }}</span>
-        <span id="edit-delete">
-            <a href="{% url 'view_task' task_details.pk %}">
-                <img src="{% url 'home' %}static/view_detail.png" alt="View detail" height="25">
-            </a>
-        </span>
-        {% if task_details.due_date %}
-        <span id="due-date">{{ task_details.due_date|date:'d-m-Y' }}</span>
-        {% endif %}
-    </div>
-</div>
+{% include 'inc/_tasks.html' %}
 {% endblock %}
 
 {% block viewtask %}
