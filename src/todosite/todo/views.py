@@ -64,6 +64,19 @@ class EditTask(UpdateView):
     success_url = '/todo/'
 
 
+class CompleteTask(DetailView):
+    """Завершение существующей задачи."""
+    queryset = Task.objects.all()
+    pk_url_kwarg = 'task_id'
+    template_name = 'todo/home.html'
+
+    def get_object(self, queryset=None):
+        task = super().get_object()
+        task.completed = True
+        task.save()
+        return task
+
+
 class DeleteTask(DeleteView):
     """Удаление выбранной задачи."""
     model = Task
@@ -176,6 +189,3 @@ def tasks_by_date(request, requested_date):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'todo/tasks_by_date.html', {'title': title, 'page_obj': page_obj})
-
-
-def complete_task()
