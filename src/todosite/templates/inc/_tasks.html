@@ -2,63 +2,43 @@
 
 {% if request.user.is_authenticated %}
 
-{% for task in page_obj %}
-
-{% comment %}
-<div class="card mb-3">
-    <div class="card-header">
-        <span>
-            <button>
-                <a href="{% url 'complete_task' task.pk %}">Done!</a>
-            </button>
-        </span>
-        <a href="{% url 'view_task' task.pk %}">
-            <img src="{% url 'home' %}static/view_detail.png" alt="View detail" height="25">
-        </a>
-
-    </div>
-</div>
-
-<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio{{task}}" autocomplete="off" checked>
-        <div>
-
-            <label class="btn btn-outline-primary" for="btnradio{{task}}">
-                    <div>{{ task.task_name }}</div>
-                    {% if task.due_date %}
-                    <div id="due-date">{{ task.due_date|date:'d-m-Y' }}</div>
-                    {% endif %}
-            </label>
-        </div>
-
-</div>
-{% endcomment %}
-
-
-<div class="accordion accordion-flush" id="accordionFlushExample">
+<div class="accordion" id="accordionExample">
+    {% for task in page_obj %}
     <div class="accordion-item">
-        <h2 class="accordion-header" id="flush-heading{{task}}">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{task}}" aria-expanded="false" aria-controls="flush-collapse{{task}}">
-        {{ task.task_name }}
+        <h2 class="accordion-header" >
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{task.pk}}" aria-expanded="false" aria-controls="collapse{{task.pk}}">
+            {{ task.task_name }}
         </button>
         </h2>
-        <div id="flush-collapse{{task}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{task}}" data-bs-parent="#accordionFlushExample">
+        <div id="collapse{{task.pk}}" class="accordion-collapse collapse" aria-labelledby="heading{{task.pk}}" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <p class="card-text">Заметки: {{ task.notes }}</p>
                 <p class="tags">Теги: {{ task.tags.all|join:", " }}</p>
                 <p class="card-text">Приоритет: {{ task.priority}}</p>
                 <p class="card-text">Завершено: {{ task.completed}}</p>
                 <p>создано: {{ task.created|date:'Y-m-d H:i' }}</p>
-                {% if task.due_date %}
-                <p>срок выполнения: {{ task.due_date|date:'Y-m-d' }}</p>
-                {% endif %}
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
+                    <label class="form-check-label" for="flexSwitchCheckChecked">Выполнено</label>
+                </div>
+
+                <button>
+                    <a href="{% url 'complete_task' task.pk %}">Done!</a>
+                </button>
+                <span id="edit-delete">
+                    <a href="{% url 'edit_task' task.pk %}">
+                        <img src="{% url 'home' %}static/edit.png" alt="Edit task" height="25">
+                    </a>
+                    <a href="{% url 'delete_task' task.pk %}">
+                         <img src="{% url 'home' %}static/delete.png" alt="Delete task" height="25">
+                    </a>
+                </span>
             </div>
         </div>
     </div>
+    {% endfor %}
 </div>
 
-{% endfor %}
 
 <!--Пагинация-->
 {% if page_obj.has_other_pages %}
