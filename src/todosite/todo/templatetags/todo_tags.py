@@ -23,22 +23,31 @@ def get_tags():
 @register.simple_tag
 def get_tasks():
     """Отображение всех задач."""
-    return Task.objects.all()
+    return Task.objects.filter(completed=False)
 
 
 @register.simple_tag()
 def show_today():
     """Фильтр задач по дате 'сегодня'."""
-    return Task.objects.all().filter(due_date=date.today())
+    due_date = date.today()
+    return Task.objects.filter(completed=False, due_date=due_date)
 
 
 @register.simple_tag()
 def show_tomorrow():
     """Фильтр задач по дате 'завтра'."""
-    return Task.objects.all().filter(due_date=date.today() + timedelta(days=1))
+    due_date = date.today() + timedelta(days=1)
+    return Task.objects.filter(completed=False, due_date=due_date)
 
 
 @register.simple_tag()
 def show_week():
     """Фильтр задач по дате 'неделя'."""
-    return Task.objects.all().filter(due_date__lte=date.today() + timedelta(days=7))
+    due_date = date.today() + timedelta(days=7)
+    return Task.objects.filter(completed=False, due_date__lte=due_date)
+
+
+@register.simple_tag()
+def show_completed():
+    """Фильтр выполненных задач."""
+    return Task.objects.filter(completed=True)

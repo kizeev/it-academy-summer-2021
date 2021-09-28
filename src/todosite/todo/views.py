@@ -185,3 +185,15 @@ def change_completed_status(request, task_id):
     task.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+
+def completed_tasks(request):
+    """Выбрать завершенные задачи."""
+    tasks_list = Task.objects.filter(completed=True)
+    paginator = Paginator(tasks_list, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(
+        request,
+        'todo/completed_tasks.html',
+        {'page_obj': page_obj, 'title': 'Выполненные'}
+    )

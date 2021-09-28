@@ -7,6 +7,7 @@
 {% show_tomorrow as tomorrow %}
 {% show_week as week %}
 {% get_tasks as all_tasks %}
+{% show_completed as completed %}
 
 <div class="list-group">
     <a href="{% url 'home' %}" class="list-group-item list-group-item-action">
@@ -34,5 +35,12 @@
     <a href="{% url 'tasks_by_tag' tag.id %}">{{ tag.name }}</a>
     {% endfor %}
 </p>
+
+<hr>
+<div class="list-group">
+    <a href="{% url 'completed_tasks' %}" class="list-group-item list-group-item-action">
+        Выполненные <span class="badge bg-primary rounded-pill">{{ completed.count }}</span>
+    </a>
+</div>
 
 {% endif %}

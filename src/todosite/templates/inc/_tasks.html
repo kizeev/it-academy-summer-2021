@@ -15,8 +15,8 @@
                 <p class="card-text">Заметки: {{ task.notes }}</p>
                 <p class="tags">Теги: {{ task.tags.all|join:", " }}</p>
                 <p class="card-text">Приоритет: {{ task.priority}}</p>
-                <p class="card-text">Завершено: {{ task.completed}}</p>
                 <p>создано: {{ task.created|date:'Y-m-d H:i' }}</p>
+                <hr>
                 <div class="form-check form-switch">
                     {% if task.completed is False %}
                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" onclick="location.href='{% url 'complete_task' task.pk %}'">
@@ -26,19 +26,18 @@
                     <label class="form-check-label" for="flexSwitchCheckChecked">
                         Выполнено
                     </label>
+
+                    <span id="edit-delete">
+                        <a href="{% url 'edit_task' task.pk %}">
+                            <img src="{% url 'home' %}static/edit.png" alt="Edit task" height="25">
+                        </a>
+                        <a href="{% url 'delete_task' task.pk %}">
+                             <img src="{% url 'home' %}static/delete.png" alt="Delete task" height="25">
+                        </a>
+                    </span>
                 </div>
 
-                <button>
-                    <a href="{% url 'complete_task' task.pk %}">Done!</a>
-                </button>
-                <span id="edit-delete">
-                    <a href="{% url 'edit_task' task.pk %}">
-                        <img src="{% url 'home' %}static/edit.png" alt="Edit task" height="25">
-                    </a>
-                    <a href="{% url 'delete_task' task.pk %}">
-                         <img src="{% url 'home' %}static/delete.png" alt="Delete task" height="25">
-                    </a>
-                </span>
+
             </div>
         </div>
     </div>
