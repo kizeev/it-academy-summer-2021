@@ -3,8 +3,9 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from taggit.models import Tag
 from .forms import TaskForm, CategoryForm, UserRegisterForm, UserLoginForm, EmailForm
 from .models import Category, Task
@@ -19,7 +20,7 @@ class HomeTasks(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Task.objects.filter()  # здесь в скобках можно указать выборку
+        return Task.objects.filter(completed=False)  # здесь в скобках можно указать выборку
 
 
 class TasksByCategory(ListView):
@@ -41,14 +42,6 @@ class TasksByCategory(ListView):
         return context
 
 
-class ViewTask(DetailView):
-    """Отображение выбранной задачи."""
-    model = Task
-    pk_url_kwarg = 'task_id'
-    template_name = 'todo/view_task.html'
-    context_object_name = 'task_details'
-
-
 class AddTask(CreateView):
     """Создание новой задачи."""
     form_class = TaskForm
@@ -62,19 +55,6 @@ class EditTask(UpdateView):
     template_name = 'todo/edit_task.html'
     form_class = TaskForm
     success_url = '/todo/'
-
-
-class CompleteTask(DetailView):
-    """Завершение существующей задачи."""
-    queryset = Task.objects.all()
-    pk_url_kwarg = 'task_id'
-    template_name = 'todo/home.html'
-
-    def get_object(self, queryset=None):
-        task = super().get_object()
-        task.completed = True
-        task.save()
-        return task
 
 
 class DeleteTask(DeleteView):
@@ -189,3 +169,19 @@ def tasks_by_date(request, requested_date):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'todo/tasks_by_date.html', {'title': title, 'page_obj': page_obj})
+
+
+def change_completed_status(request, task_id):
+    """
+    Изменить статус выполнения задачи.
+
+    После изменения статуса возвращает на предыдущую страницу.
+    """
+    task = Task.objects.filter(id=task_id).get()
+    if task.completed:
+        task.completed = False
+    else:
+        task.completed = True
+    task.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
