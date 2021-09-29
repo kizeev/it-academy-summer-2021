@@ -13,11 +13,24 @@
 
             {% if request.user.is_authenticated %}
 
+
+
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                  <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'add_task' %}">Добавить задачу</a>
                 </li>
+                <li>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Поиск задачи" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Поиск</button>
+                    </form>
+
+                </li>
             </ul>
+
+
+
+
             Добро пожаловать, {{ user.username }} |
             <a href="{% url 'logout' %}">
                 <img src="{% url 'home' %}static/logout.png" alt="Logout" height="25">

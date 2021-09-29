@@ -33,7 +33,9 @@ class TasksByCategory(ListView):
 
     def get_queryset(self):
         """Отображение задач по выбранной категории."""
-        return Task.objects.filter(task_category_id=self.kwargs['category_id'])
+        return Task.objects\
+            .filter(task_category_id=self.kwargs['category_id'])\
+            .filter(completed=False)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         """Отображение выбранной категории в заголовке страницы."""
@@ -46,6 +48,7 @@ class AddTask(CreateView):
     """Создание новой задачи."""
     form_class = TaskForm
     template_name = 'todo/add_task.html'
+    success_url = '/todo/'
 
 
 class EditTask(UpdateView):
@@ -147,23 +150,27 @@ def tasks_by_tag(request, tag_id=None):
 
 def tasks_by_date(request, requested_date):
     """Фильтр задач по дате выполнения."""
-    tasks_list = Task.objects.all()
+    tasks_list = Task.objects.filter(completed=False)
+    today = date.today()
 
     if requested_date == 'today':
-        requested_date = date.today()
+        requested_date = today
         tasks_list = tasks_list.filter(due_date=requested_date)
         title = 'Сегодня'
     elif requested_date == 'tomorrow':
-        requested_date = date.today() + timedelta(days=1)
+        requested_date = today + timedelta(days=1)
         tasks_list = tasks_list.filter(due_date=requested_date)
         title = 'Завтра'
     elif requested_date == 'week':
-        requested_date = date.today() + timedelta(days=7)
-        tasks_list = tasks_list.filter(due_date__lte=requested_date)
+        requested_date = today + timedelta(days=7)
+        tasks_list = tasks_list.filter(due_date__range=(today, requested_date))
         title = 'Эта неделя'
     elif requested_date == 'all':
         tasks_list = tasks_list
         title = 'Все'
+    elif requested_date == 'expired':
+        tasks_list = tasks_list.filter(due_date__lt=today)
+        title = 'Просроченные'
 
     paginator = Paginator(tasks_list, 10)
     page_number = request.GET.get('page')

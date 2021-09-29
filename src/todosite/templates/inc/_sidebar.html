@@ -6,6 +6,7 @@
 {% show_today as today %}
 {% show_tomorrow as tomorrow %}
 {% show_week as week %}
+{% show_expired as expired %}
 {% get_tasks as all_tasks %}
 {% show_completed as completed %}
 
@@ -21,6 +22,9 @@
     </a>
     <a href="{% url 'tasks_by_date' 'week' %}" class="list-group-item list-group-item-action">
         Эта неделя <span class="badge bg-primary rounded-pill">{{ week.count }}</span>
+    </a>
+    <a href="{% url 'tasks_by_date' 'expired' %}" class="list-group-item list-group-item-action">
+        Просроченные <span class="badge bg-primary rounded-pill">{{ expired.count }}</span>
     </a>
 </div>
 

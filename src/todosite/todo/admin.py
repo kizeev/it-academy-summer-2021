@@ -13,10 +13,9 @@ class TaskAdmin(admin.ModelAdmin):
         'task_category',
         'created',
         'due_date',
-        'priority',
         'completed',
         'tags',
     )
-    list_filter = ('task_category', 'created', 'due_date', 'priority', 'completed', 'tags')
+    list_filter = ('task_category', 'created', 'due_date', 'completed', 'tags')
     search_fields = ('task_name',)
 

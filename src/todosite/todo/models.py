@@ -27,12 +27,6 @@ class Category(models.Model):
 
 class Task(models.Model):
     """Модель представляет задачу, которую планируется выполнить."""
-    PRIORITY_CHOICES = (
-        ('high', 'Высокий'),
-        ('medium', 'Средний'),
-        ('low', 'Низкий'),
-    )
-
     task_name = models.CharField(max_length=40, help_text='что нужно', verbose_name='Задача')
     task_category = models.ForeignKey(
         Category,
@@ -44,12 +38,6 @@ class Task(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создано')
     due_date = models.DateField(null=True, blank=True, verbose_name='Срок выполнения')
     notes = models.CharField(max_length=250, verbose_name='заметки', blank=True)
-    priority = models.CharField(
-        max_length=10,
-        choices=PRIORITY_CHOICES,
-        default='low',
-        verbose_name='Приоритет'
-    )
     completed = models.BooleanField(verbose_name='Завершено', default=False, blank=True)
     tags = TaggableManager(blank=True)
 

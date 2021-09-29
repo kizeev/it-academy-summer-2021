@@ -10,7 +10,10 @@ register = template.Library()
 @register.inclusion_tag('todo/list_categories.html')
 def show_categories():
     """Отображение списка категорий и количества задач в каждой из них."""
-    categories = Category.objects.order_by('category_name').annotate(cnt=Count('task'))
+    categories = Category.objects\
+        .order_by('category_name')\
+        .filter(task__completed=False)\
+        .annotate(cnt=Count('task'))
     return {'categories': categories}
 
 
@@ -43,8 +46,16 @@ def show_tomorrow():
 @register.simple_tag()
 def show_week():
     """Фильтр задач по дате 'неделя'."""
+    today = date.today()
     due_date = date.today() + timedelta(days=7)
-    return Task.objects.filter(completed=False, due_date__lte=due_date)
+    return Task.objects.filter(completed=False, due_date__range=(today, due_date))
+
+
+@register.simple_tag()
+def show_expired():
+    """Фильтр задач с истекшим сроком выполнения."""
+    today = date.today()
+    return Task.objects.filter(completed=False, due_date__lt=today)
 
 
 @register.simple_tag()
