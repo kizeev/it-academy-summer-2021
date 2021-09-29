@@ -16,7 +16,7 @@ class HomeTasks(ListView):
     model = Task
     template_name = 'todo/home.html'
     context_object_name = 'tasks'
-    extra_context = {'title': 'Главная'}
+    extra_context = {'title': 'Все задачи'}
     paginate_by = 10
 
     def get_queryset(self):
@@ -26,7 +26,7 @@ class HomeTasks(ListView):
 class TasksByCategory(ListView):
     """Представление списка задач по категориям."""
     model = Task
-    template_name = 'todo/tasks_by_category.html'
+    template_name = 'todo/home.html'
     context_object_name = 'tasks'
     allow_empty = True
     paginate_by = 10
@@ -68,6 +68,17 @@ class DeleteTask(DeleteView):
     pk_url_kwarg = 'task_id'
 
 
+class SearchTasks(ListView):
+    model = Task
+    template_name = 'todo/home.html'
+    extra_context = {'title': 'Результаты поиска'}
+
+    def get_queryset(self):
+        query = self.request.GET.get('search')
+        tasks_list = Task.objects.filter(task_name__icontains=query)
+        return tasks_list
+
+
 class AddCategory(CreateView):
     """Создание новой категории."""
     form_class = CategoryForm
@@ -87,7 +98,7 @@ def register(request):
             messages.error(request, 'Ошибка регистрации')
     else:
         form = UserRegisterForm()
-    return render(request, 'registration/register.html', {'form': form})
+    return render(request, 'todo/register.html', {'form': form})
 
 
 def user_login(request):
@@ -103,7 +114,7 @@ def user_login(request):
             messages.error(request, 'Ошибка авторизации')
     else:
         form = UserLoginForm()
-    return render(request, 'registration/login.html', {'form': form})
+    return render(request, 'todo/login.html', {'form': form})
 
 
 def user_logout(request):
@@ -142,10 +153,15 @@ def tasks_by_tag(request, tag_id=None):
         tag = get_object_or_404(Tag, id=tag_id)
         tasks_list = tasks_list.filter(tags__in=[tag])
 
+    title = 'Тег: ' + str(tag)
     paginator = Paginator(tasks_list, 10)
     page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'todo/tasks_by_tags.html', {'tag': tag, 'page_obj': page_obj})
+    object_list = paginator.get_page(page_number)
+    return render(
+        request,
+        'todo/home.html',
+        {'tag': tag, 'object_list': object_list, 'title': title}
+    )
 
 
 def tasks_by_date(request, requested_date):
@@ -174,8 +190,8 @@ def tasks_by_date(request, requested_date):
 
     paginator = Paginator(tasks_list, 10)
     page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'todo/tasks_by_date.html', {'title': title, 'page_obj': page_obj})
+    object_list = paginator.get_page(page_number)
+    return render(request, 'todo/home.html', {'title': title, 'object_list': object_list})
 
 
 def change_completed_status(request, task_id):
@@ -198,9 +214,9 @@ def completed_tasks(request):
     tasks_list = Task.objects.filter(completed=True)
     paginator = Paginator(tasks_list, 10)
     page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    object_list = paginator.get_page(page_number)
     return render(
         request,
-        'todo/completed_tasks.html',
-        {'page_obj': page_obj, 'title': 'Выполненные'}
+        'todo/home.html',
+        {'object_list': object_list, 'title': 'Выполненные'}
     )

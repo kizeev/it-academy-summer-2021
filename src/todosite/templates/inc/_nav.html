@@ -3,35 +3,24 @@
         <a class="navbar-brand" href="{% url 'home' %}">
             <img src="{% url 'home' %}static/brand.png" alt="ToDo App" height="40">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             {% if request.user.is_authenticated %}
-
-
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                  <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'add_task' %}">Добавить задачу</a>
                 </li>
                 <li>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Поиск задачи" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Поиск</button>
+                    <form class="d-flex" action="{% url 'search_task' %}" method="get">
+                        <input class="form-control me-2" name="search" type="text" placeholder="Поиск задачи" aria-label="Search">
+                        <button class="btn btn-outline-secondary" type="submit">
+                            <img src="{% url 'home' %}static/search.png" alt="search" height="20">
+                        </button>
                     </form>
-
                 </li>
             </ul>
-
-
-
-
-            Добро пожаловать, {{ user.username }} |
+            <span>Добро пожаловать, {{ user.username }} |</span>
             <a href="{% url 'logout' %}">
                 <img src="{% url 'home' %}static/logout.png" alt="Logout" height="25">
             </a>
