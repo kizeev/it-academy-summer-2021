@@ -72,6 +72,7 @@ class SearchTasks(ListView):
     model = Task
     template_name = 'todo/home.html'
     extra_context = {'title': 'Результаты поиска'}
+    paginate_by = 10
 
     def get_queryset(self):
         query = self.request.GET.get('search')

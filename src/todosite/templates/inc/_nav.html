@@ -1,29 +1,33 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #cfe2ff;">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'home' %}">
-            <img src="{% url 'home' %}static/brand.png" alt="ToDo App" height="40">
+            <img src="{% url 'home' %}static/logo.png" alt="ToDo App" height="40">
+            ToDo
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
             {% if request.user.is_authenticated %}
 
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'add_task' %}">Добавить задачу</a>
-                </li>
-                <li>
-                    <form class="d-flex" action="{% url 'search_task' %}" method="get">
-                        <input class="form-control me-2" name="search" type="text" placeholder="Поиск задачи" aria-label="Search">
-                        <button class="btn btn-outline-secondary" type="submit">
-                            <img src="{% url 'home' %}static/search.png" alt="search" height="20">
-                        </button>
-                    </form>
-                </li>
-            </ul>
-            <span>Добро пожаловать, {{ user.username }} |</span>
-            <a href="{% url 'logout' %}">
-                <img src="{% url 'home' %}static/logout.png" alt="Logout" height="25">
-            </a>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+            <span>
+                <form class="d-flex" action="{% url 'search_task' %}" method="get">
+                    <input class="form-control me-2" name="search" type="text" placeholder="Поиск задачи" aria-label="Search">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <img src="{% url 'home' %}static/search.png" alt="search" height="20">
+                    </button>
+                </form>
+            </span>
+            <span class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{% url 'home' %}static/user.png" alt="search" height="25">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">{{ user.username }}</a></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
+                </ul>
+            </span>
+
+
 
             {% else %}
             <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>

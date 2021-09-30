@@ -11,40 +11,38 @@
 {% show_completed as completed %}
 
 <div class="list-group">
-    <a href="{% url 'home' %}" class="list-group-item list-group-item-action">
-        Все <span class="badge bg-primary rounded-pill">{{ all_tasks.count }}</span>
+    <h1>
+        Задачи
+        <a href="{% url 'add_task' %}">
+            <img src="{% url 'home' %}static/add.png" alt="Add task" height="25">
+        </a>
+    </h1>
+    <a href="{% url 'home' %}" class="list-group-item list-group-item-action list-group-item-primary">
+        Все
+        <span class="badge bg-primary rounded-pill">{{ all_tasks.count }}</span>
     </a>
-    <a href="{% url 'tasks_by_date' 'today' %}" class="list-group-item list-group-item-action">
-        Сегодня <span class="badge bg-primary rounded-pill">{{ today.count }}</span>
+    <a href="{% url 'tasks_by_date' 'today' %}" class="list-group-item list-group-item-action list-group-item-primary">
+        Сегодня
+        <span class="badge bg-primary rounded-pill">{{ today.count }}</span>
     </a>
-    <a href="{% url 'tasks_by_date' 'tomorrow' %}" class="list-group-item list-group-item-action">
-        Завтра <span class="badge bg-primary rounded-pill">{{ tomorrow.count }}</span>
+    <a href="{% url 'tasks_by_date' 'tomorrow' %}" class="list-group-item list-group-item-action list-group-item-primary">
+        Завтра
+        <span class="badge bg-primary rounded-pill">{{ tomorrow.count }}</span>
     </a>
-    <a href="{% url 'tasks_by_date' 'week' %}" class="list-group-item list-group-item-action">
-        Эта неделя <span class="badge bg-primary rounded-pill">{{ week.count }}</span>
+    <a href="{% url 'tasks_by_date' 'week' %}" class="list-group-item list-group-item-action list-group-item-primary">
+        Эта неделя
+        <span class="badge bg-primary rounded-pill">{{ week.count }}</span>
     </a>
-    <a href="{% url 'tasks_by_date' 'expired' %}" class="list-group-item list-group-item-action">
-        Просроченные <span class="badge bg-primary rounded-pill">{{ expired.count }}</span>
+    <a href="{% url 'tasks_by_date' 'expired' %}" class="list-group-item list-group-item-action list-group-item-primary">
+        Просроченные
+        <span class="badge bg-primary rounded-pill">{{ expired.count }}</span>
+    </a>
+    <a href="{% url 'completed_tasks' %}" class="list-group-item list-group-item-action list-group-item-primary">
+        Выполненные
+        <span class="badge bg-primary rounded-pill">{{ completed.count }}</span>
     </a>
 </div>
 
 {% show_categories %}
-<hr>
-
-<!--Теги-->
-<p class="tags">
-    {% get_tags as tags %}
-    Теги:
-    {% for tag in tags %}
-    <a href="{% url 'tasks_by_tag' tag.id %}">{{ tag.name }}</a>
-    {% endfor %}
-</p>
-
-<hr>
-<div class="list-group">
-    <a href="{% url 'completed_tasks' %}" class="list-group-item list-group-item-action">
-        Выполненные <span class="badge bg-primary rounded-pill">{{ completed.count }}</span>
-    </a>
-</div>
 
 {% endif %}

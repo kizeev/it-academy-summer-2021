@@ -1,4 +1,12 @@
-#category-title{
+.navbar{
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+}
+.navbar-brand{
+   margin-right: 10rem;
+}
+
+h1{
     text-align: center;
     margin-bottom: 0.5;
     font-size: 120%;
