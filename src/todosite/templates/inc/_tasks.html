@@ -1,16 +1,17 @@
 {% load todo_tags %}
 
-{% if request.user.is_authenticated %}
-
 <div class="accordion" id="accordionExample">
     {% for task in object_list %}
     <div class="accordion-item">
         <h2 class="accordion-header">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{task.pk}}" aria-expanded="false" aria-controls="collapse{{task.pk}}">
-            {{ task.task_name }}
-        </button>
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse{{task.pk}}" aria-expanded="false"
+                    aria-controls="collapse{{task.pk}}">
+                {{ task.task_name }}
+            </button>
         </h2>
-        <div id="collapse{{task.pk}}" class="accordion-collapse collapse" aria-labelledby="heading{{task.pk}}" data-bs-parent="#accordionExample">
+        <div id="collapse{{task.pk}}" class="accordion-collapse collapse"
+             aria-labelledby="heading{{task.pk}}" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 {% if task.notes %}
                 <p class="card-text">Заметки: {{ task.notes }}</p>
@@ -21,25 +22,36 @@
                 {% if task.due_date %}
                 <p>срок: {{ task.due_date|date:'Y-m-d' }}</p>
                 {% endif %}
-                <div class="form-check form-switch">
+                <hr>
+                <span class="form-check form-switch">
                     {% if task.completed is False %}
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" onclick="location.href='{% url 'complete_task' task.pk %}'">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
+                           onclick="location.href='{% url 'complete_task' task.pk %}'">
                     {% else %}
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" onclick="location.href='{% url 'complete_task' task.pk %}'" checked>
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
+                           onclick="location.href='{% url 'complete_task' task.pk %}'" checked>
                     {% endif %}
                     <label class="form-check-label" for="flexSwitchCheckChecked">
                         Выполнено
                     </label>
-
                     <span id="edit-delete">
-                        <a href="{% url 'edit_task' task.pk %}">
-                            <img src="{% url 'home' %}static/edit.png" alt="Edit task" height="25">
-                        </a>
-                        <a href="{% url 'delete_task' task.pk %}">
-                             <img src="{% url 'home' %}static/delete.png" alt="Delete task" height="25">
-                        </a>
+                        <button class="btn btn-outline-secondary">
+                            <a href="{% url 'edit_task' task.pk %}">
+                                <img src="{% url 'home' %}static/edit.png" alt="Edit task"
+                                     height="20">
+                            </a>
+                        </button>
                     </span>
-                </div>
+                    <span id="edit-delete">
+                        <form action="{% url 'delete_task' task.pk %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-secondary" type="submit">
+                                <img src="{% url 'home' %}static/delete.png" alt="Delete task"
+                                     height="20">
+                            </button>
+                        </form>
+                    </span>
+                </span>
             </div>
         </div>
     </div>
@@ -86,6 +98,4 @@
 
     </ul>
 </nav>
-{% endif %}
-
 {% endif %}

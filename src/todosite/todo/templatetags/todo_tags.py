@@ -10,9 +10,9 @@ register = template.Library()
 @register.inclusion_tag('todo/list_categories.html')
 def show_categories():
     """Отображение списка категорий и количества задач в каждой из них."""
-    categories = Category.objects\
-        .order_by('category_name')\
-        .filter(task__completed=False)\
+    categories = Category.objects \
+        .order_by('category_name') \
+        .filter(task__completed=False) \
         .annotate(cnt=Count('task'))
     return {'categories': categories}
 

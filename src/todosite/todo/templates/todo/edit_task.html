@@ -9,9 +9,11 @@
 {% endblock %}
 
 {% block content %}
+
 <form action="{% url 'edit_task' task.pk %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-primary btn-block">Редактировать</button>
 </form>
+
 {% endblock %}

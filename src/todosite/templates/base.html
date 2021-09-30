@@ -18,11 +18,9 @@
 {% include 'inc/_nav.html' %}
 
 <div id="content-title">
-    {% if request.user.is_authenticated %}
+
     {% block content-title %} Все задачи {% endblock %}
-    {% else %}
-    Для продолжения войдите в учетную запись или зарегистрируйтесь
-    {% endif %}
+
 </div>
 
 <div class="container mt-3">
@@ -33,28 +31,12 @@
             {% include 'inc/_sidebar.html' %}
         </div>
 
+        <!--Контент-->
         <div class="col-md-6">
-
-            <!--Всплывающие сообщения-->
-            {% if messages %}
-                {% for message in messages %}
-                    {% if message.tags  == 'error' %}
-                    <div class="alert alert-danger" role="alert">
-                        {{ message }}
-                    </div>
-                    {% else %}
-                    <div class="alert alert-{{ message.tags }}" role="alert">
-                        {{ message }}
-                    </div>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-
-            <!--Контент-->
             {% block content %} CONTENT {% endblock %}
-
         </div>
 
+        <!--Сайдбар правый-->
         <div class="col-md-3">
             {% include 'inc/_right_sidebar.html' %}
         </div>

@@ -5,7 +5,6 @@
 .navbar-brand{
    margin-right: 10rem;
 }
-
 h1{
     text-align: center;
     margin-bottom: 0.5;
@@ -19,27 +18,9 @@ h1{
     text-align: center;
     font-size: 130%;
 }
-.card-header{
-    margin-bottom: 0;
-    background-color: rgb(222 224 226 / 80%);
-}
-.card-footer{
-    background-color: rgb(222 224 226 / 20%);
-}
-.card-text{
-    font: italic 100% serif;
-    margin-bottom: 0;
-}
-.card-body{
-    background-color: rgb(222 224 226 / 10%);
-    padding: 0.5rem 1rem;
-}
-#due-date{
-    float: right;
-}
 #edit-delete{
     float: right;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 #task-name{
     font: 140% serif;

@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Category, Task
 
-
 admin.site.register(Category)
 
 
@@ -18,4 +17,3 @@ class TaskAdmin(admin.ModelAdmin):
     )
     list_filter = ('task_category', 'created', 'due_date', 'completed', 'tags')
     search_fields = ('task_name',)
-
